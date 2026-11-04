@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin | Log in</title>
+
+  <!-- Fonts (Montserrat for the logo, Poppins for the text) -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Login + register styles -->
+  <link rel="stylesheet" href="css/auth.css" />
+
+    <!-- Loading screen styles -->
+  <link rel="stylesheet" href="../loader.css" />
+</head>
+
+  <!-- ===================== LOADING SCREEN ===================== -->
+    <div class="loader" id="loader" data-key="brewAdminLoaderSeen" data-always="true" aria-hidden="true">
+    <div class="loader-content">
+
+      <!-- Cup with rings, coffee and steam -->
+      <div class="loader-cup-box">
+        <span class="loader-ring"></span>
+        <span class="loader-ring loader-ring-2"></span>
+        <span class="loader-glow"></span>
+
+        <svg class="loader-cup" viewBox="0 -14 40 48">
+          <defs>
+            <!-- Coffee stays inside the cup -->
+            <clipPath id="cupInside">
+              <path d="M6 9h24v6.5A11.5 11.5 0 0 1 18.5 27h-1A11.5 11.5 0 0 1 6 15.5V9Z"/>
+            </clipPath>
+          </defs>
+
+          <!-- Coffee + foam -->
+          <g clip-path="url(#cupInside)">
+            <rect class="cup-coffee" x="5" y="12" width="26" height="16"/>
+            <rect class="cup-foam" x="5" y="11" width="26" height="1.6"/>
+          </g>
+
+          <!-- Steam -->
+          <path class="steam steam-1" d="M14 5c-2-2.5 2-4.5 0-7s2-4.5 0-7"/>
+          <path class="steam steam-2" d="M19 5c-2-2.5 2-4.5 0-7s2-4.5 0-7"/>
+          <path class="steam steam-3" d="M24 5c-2-2.5 2-4.5 0-7s2-4.5 0-7"/>
+
+          <!-- Cup lines (same as the logo) -->
+          <path class="cup-line cup-line-body" pathLength="100" d="M6 9h24v6.5A11.5 11.5 0 0 1 18.5 27h-1A11.5 11.5 0 0 1 6 15.5V9Z"/>
+          <path class="cup-line cup-line-handle" pathLength="100" d="M30 12h2.2a4.3 4.3 0 0 1 0 8.6H28.6"/>
+          <path class="cup-line cup-line-plate" pathLength="100" d="M7 31.5h22"/>
+        </svg>
+      </div>
+
+      <!-- Brand name (each letter animates) -->
+      <p class="loader-name">
+        <span>B</span><span>R</span><span>E</span><span>W</span><span class="loader-space"></span><span>C</span><span>O</span><span>.</span>
+      </p>
+      <p class="loader-subtitle">ADMIN PANEL</p>
+
+      <!-- Progress bar -->
+      <div class="loader-progress">
+        <div class="loader-bar">
+          <div class="loader-bar-fill" id="loaderFill"></div>
+        </div>
+        <div class="loader-info">
+          <span>Preparing your login<span class="loader-dots"><span>.</span><span>.</span><span>.</span></span></span>
+          <span class="loader-percent" id="loaderPercent">0%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../js/loader.js"></script>
+<body class="auth-page">
+
+  <!-- ===================== ANIMATED BACKGROUND ===================== -->
+  <div class="auth-bg" aria-hidden="true">
+    <span class="auth-orb orb-1"></span>
+    <span class="auth-orb orb-2"></span>
+    <span class="auth-orb orb-3"></span>
+
+    <!-- Big logo in the background -->
+    <svg class="auth-bg-logo" viewBox="0 0 40 34">
+      <path d="M19 2.5v2.5"/>
+      <path d="M6 9h24v6.5A11.5 11.5 0 0 1 18.5 27h-1A11.5 11.5 0 0 1 6 15.5V9Z"/>
+      <path d="M30 12h2.2a4.3 4.3 0 0 1 0 8.6H28.6"/>
+      <path d="M7 31.5h22"/>
+    </svg>
+
+    <div class="auth-grid"></div>
+  </div>
+
+  <main class="auth-layout">
+
+    <!-- ===================== LEFT: BRAND ===================== -->
+    <section class="auth-brand">
+      <a class="auth-logo" href="/">
+        <svg class="auth-logo-cup" viewBox="0 0 40 34" aria-hidden="true">
+          <path d="M19 2.5v2.5"/>
+          <path d="M6 9h24v6.5A11.5 11.5 0 0 1 18.5 27h-1A11.5 11.5 0 0 1 6 15.5V9Z"/>
+          <path d="M30 12h2.2a4.3 4.3 0 0 1 0 8.6H28.6"/>
+          <path d="M7 31.5h22"/>
+        </svg>
+        <span>
+          <strong>BREW CO.</strong>
+          <small>ADMIN PANEL</small>
+        </span>
+      </a>
+
+      <h1 class="auth-title">Manage your <span>menu</span><br />from one place.</h1>
+      <p class="auth-text">Add categories, update items and prices, and every change appears on the customer menu right away.</p>
+
+      <!-- Features -->
+      <ul class="auth-features">
+        <li>
+          <span class="feature-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          </span>
+          Secure login with encrypted passwords
+        </li>
+        <li>
+          <span class="feature-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3 4 14h7l-1 7 9-11h-7l1-7z"/></svg>
+          </span>
+          Live updates on the customer menu
+        </li>
+        <li>
+          <span class="feature-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg>
+          </span>
+          Statistics, trash and restore
+        </li>
+      </ul>
+
+      <p class="auth-copy">© 2026 BREW CO. Digital Menu</p>
+    </section>
+
+    <!-- ===================== RIGHT: LOGIN CARD ===================== -->
+    <section class="auth-card">
+      <div class="auth-card-head">
+        <span class="auth-card-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.5"/></svg>
+        </span>
+        <h2>Welcome back</h2>
+        <p>Log in to your admin account</p>
+      </div>
+
+      <!-- Error / info message -->
+      <p class="auth-message" id="authMessage" role="alert" hidden></p>
+
+      <!-- Login form -->
+      <form class="auth-form" id="loginForm" novalidate>
+
+        <!-- Username or email -->
+        <div class="field">
+          <label class="field-label" for="login">Username or email</label>
+          <div class="field-box">
+            <svg class="field-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+            <input type="text" id="login" name="login" placeholder="you@gmail.com" autocomplete="username" required />
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="field">
+          <label class="field-label" for="password">Password</label>
+          <div class="field-box">
+            <svg class="field-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+            <input type="password" id="password" name="password" placeholder="Your password" autocomplete="current-password" required />
+
+            <!-- Show / hide the password -->
+            <button type="button" class="toggle-password" data-target="password" aria-label="Show password">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Login button -->
+        <button type="submit" class="auth-btn" id="submitBtn">
+          <span class="auth-btn-text">Log in</span>
+          <span class="auth-spinner" aria-hidden="true"></span>
+        </button>
+      </form>
+
+      <p class="auth-switch">Don't have an account? <a href="register.html">Create one</a></p>
+
+      <p class="auth-secure">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.4 8.5 8 9 4.6-.5 8-4 8-9V6l-8-3z"/><path d="m9 12 2 2 4-4"/></svg>
+        Protected with JWT and encrypted passwords
+      </p>
+    </section>
+  </main>
+
+  <!-- Page scripts -->
+  <script src="js/auth-ui.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

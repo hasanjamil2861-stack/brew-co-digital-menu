@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#fffefa" />
+  <title>BREW CO. | Scan Our Menu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ---------- QR PAGE ---------- */
+    .qr-page {
+      display: grid;
+      place-items: center;
+      padding: 24px 0 40px;
+    }
+    .qr-card {
+      width: min(100%, 380px);
+      padding: 32px 28px 28px;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(60, 40, 25, .08);
+      text-align: center;
+    }
+    .qr-card h1 {
+      margin: 0;
+      color: var(--brown);
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .qr-card h1 span { color: #a8875f; }
+    .qr-card > p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .qr-frame {
+      margin: 24px auto 0;
+      width: 240px;
+      padding: 14px;
+      border: 2px solid #ece2d5;
+      border-radius: 18px;
+      background: #fff;
+    }
+    .qr-frame img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+    }
+    .qr-steps {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+      color: #6b5444;
+      font-size: 12px;
+    }
+    .qr-steps li { display: flex; align-items: center; gap: 6px; }
+    .qr-steps b {
+      display: grid;
+      place-items: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--tan);
+      color: #fff;
+      font-size: 11px;
+    }
+    .qr-link {
+      display: inline-block;
+      margin-top: 18px;
+      color: var(--tan-dark);
+      font-size: 13px;
+      font-weight: 500;
+      word-break: break-all;
+    }
+
+    @media (min-width: 600px) {
+      .qr-card { width: 420px; padding: 40px 36px 34px; }
+      .qr-card h1 { font-size: 30px; }
+      .qr-frame { width: 280px; }
+    }
+
+    /* Print: only the card, ready to put on the tables */
+    @media print {
+      .site-header, .site-footer { display: none; }
+      body { background: #fff; }
+      .qr-card { box-shadow: none; border: 1px solid #ddd; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container topbar">
+      <span class="header-icon menu-symbol" aria-hidden="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.5h17M3.5 12h17M3.5 17.5h17" /></svg>
+      </span>
+      <a class="brand" href="index.html" aria-label="Brew Co. Coffee and More, home">
+        <svg class="brand-cup" viewBox="0 0 40 34" aria-hidden="true">
+          <path d="M19 2.5v2.5"/>
+          <path d="M6 9h24v6.5A11.5 11.5 0 0 1 18.5 27h-1A11.5 11.5 0 0 1 6 15.5V9Z"/>
+          <path d="M30 12h2.2a4.3 4.3 0 0 1 0 8.6H28.6"/>
+          <path d="M7 31.5h22"/>
+        </svg>
+        <span class="brand-name">BREW CO.</span>
+        <span class="brand-subtitle">COFFEE &amp; MORE</span>
+      </a>
+      <span class="header-icon cart-symbol" role="img" aria-label="Shopping cart, 0 items">
+        <svg viewBox="0 0 28 28" aria-hidden="true">
+          <path d="M2.5 4.5h3.2l2.8 13.6a2.2 2.2 0 0 0 2.2 1.8h10.6a2.2 2.2 0 0 0 2.1-1.6l2.1-8.8H7.2"/>
+          <circle cx="11.2" cy="24" r="1.7"/><circle cx="20.8" cy="24" r="1.7"/>
+        </svg>
+        <span class="cart-count" aria-hidden="true">0</span>
+      </span>
+    </div>
+  </header>
+
+  <main class="container qr-page">
+    <section class="qr-card" aria-labelledby="qr-heading">
+      <h1 id="qr-heading">Scan to see<br /><span>our menu</span></h1>
+      <p>Point your phone camera at the code.</p>
+
+      <div class="qr-frame">
+        <!-- CHANGE THE LINK: replace YOUR-USERNAME.github.io/brew-co-menu/ with your real site link (in BOTH places below) -->
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&amp;margin=0&amp;color=3b2a20&amp;data=https://YOUR-USERNAME.github.io/brew-co-menu/"
+          alt="QR code that opens the BREW CO. digital menu" />
+      </div>
+
+      <ol class="qr-steps">
+        <li><b>1</b> Open camera</li>
+        <li><b>2</b> Scan</li>
+        <li><b>3</b> Enjoy</li>
+      </ol>
+
+      <a class="qr-link" href="index.html">YOUR-USERNAME.github.io/brew-co-menu</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <aside class="delivery-banner">
+        <span class="delivery-icon" aria-hidden="true">
+          <svg viewBox="0 0 44 34"><rect x="5" y="6" width="11" height="9" rx="1.5"/><path d="M10.5 6v9M4 20.5c0-3 2.4-5 5.5-5H19l2.5 6H4.5"/><path d="M14 27h14M21.5 21.5 28 27M28 27l3-13.5h-4.5M26.5 13.5h6"/><circle cx="9" cy="27" r="3.6"/><circle cx="35" cy="27" r="3.6"/><path d="M31 14l4 9.5"/></svg>
+        </span>
+        <div class="delivery-copy"><h3>We deliver to you!</h3><p>Fast &amp; fresh to your door.</p></div>
+        <span class="delivery-arrow" aria-hidden="true">›</span>
+      </aside>
+    </div>
+  </footer>
+</body>
+</html>

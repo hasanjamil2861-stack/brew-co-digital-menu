@@ -1,0 +1,605 @@
+/* =========================================================
+   BREW CO. LOADING SCREEN
+   Shows for 5 seconds the first time the menu opens
+========================================================= */
+
+/* No scrolling while the loader is on the screen */
+body.is-loading {
+    overflow: hidden;
+}
+
+/* =========================================================
+   FULL SCREEN BACKGROUND
+========================================================= */
+
+.loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 42%,
+            rgba(184, 147, 106, 0.22),
+            transparent 42%
+        ),
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(74, 52, 39, 0.08),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(194, 165, 133, 0.16),
+            transparent 35%
+        ),
+        #fcfbf8;
+
+    /* The circle that closes at the end */
+    clip-path: circle(150% at 50% 45%);
+
+    transition: clip-path 0.9s cubic-bezier(0.7, 0, 0.3, 1);
+
+    /* Safety: hides by itself if the JavaScript does not run */
+    animation: loaderSafety 0.6s ease 7s forwards;
+}
+
+/* End of the loading: the screen closes in a circle */
+.loader.loader-done {
+    clip-path: circle(0% at 50% 45%);
+}
+
+/* Light grid in the background */
+.loader::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    opacity: 0.6;
+
+    background-image:
+        linear-gradient(
+            rgba(74, 52, 39, 0.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(74, 52, 39, 0.035) 1px,
+            transparent 1px
+        );
+
+    background-size: 38px 38px;
+
+    mask-image:
+        radial-gradient(
+            circle at 50% 45%,
+            black 0%,
+            transparent 60%
+        );
+
+    -webkit-mask-image:
+        radial-gradient(
+            circle at 50% 45%,
+            black 0%,
+            transparent 60%
+        );
+}
+
+/* =========================================================
+   CONTENT (center)
+========================================================= */
+
+.loader-content {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+
+    transition:
+        transform 0.9s ease,
+        opacity 0.6s ease;
+}
+
+/* Content zooms a little when the loader closes */
+.loader.loader-done .loader-content {
+    transform: scale(0.85);
+    opacity: 0;
+}
+
+/* =========================================================
+   CUP + RINGS
+========================================================= */
+
+.loader-cup-box {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 170px;
+    height: 170px;
+}
+
+/* Two rings turning around the cup */
+.loader-ring {
+    position: absolute;
+    inset: 0;
+
+    border: 1.5px dashed rgba(184, 147, 106, 0.45);
+    border-radius: 50%;
+
+    animation:
+        loaderFadeIn 0.8s ease both,
+        loaderSpin 14s linear infinite;
+}
+
+.loader-ring-2 {
+    inset: 18px;
+
+    border: 1px solid rgba(74, 52, 39, 0.1);
+    border-top-color: #b8936a;
+
+    animation:
+        loaderFadeIn 0.8s ease 0.2s both,
+        loaderSpin 2.4s linear infinite reverse;
+}
+
+/* Soft light behind the cup */
+.loader-glow {
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    border-radius: 50%;
+
+    background: rgba(184, 147, 106, 0.25);
+
+    filter: blur(28px);
+
+    animation: loaderGlow 2.4s ease-in-out infinite;
+}
+
+/* ---------- The cup ---------- */
+
+.loader-cup {
+    position: relative;
+
+    width: 96px;
+    height: 82px;
+
+    overflow: visible;
+
+    animation: loaderFloat 3s ease-in-out 2s infinite;
+}
+
+/* Cup lines draw themselves */
+.cup-line {
+    fill: none;
+    stroke: #3d2c22;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+
+    animation: loaderDraw 1.3s ease forwards;
+}
+
+.cup-line-body {
+    animation-delay: 0.2s;
+}
+
+.cup-line-handle {
+    animation-delay: 0.7s;
+}
+
+.cup-line-plate {
+    animation-delay: 1s;
+}
+
+/* Coffee rising inside the cup */
+.cup-coffee {
+    fill: #4a3427;
+
+    transform: translateY(20px);
+
+    animation: loaderFill 1.6s cubic-bezier(0.4, 0, 0.2, 1) 1.2s forwards;
+}
+
+/* Light foam line on top of the coffee */
+.cup-foam {
+    fill: #c2a585;
+
+    transform: translateY(20px);
+
+    animation: loaderFill 1.6s cubic-bezier(0.4, 0, 0.2, 1) 1.2s forwards;
+}
+
+/* ---------- Steam ---------- */
+
+.steam {
+    fill: none;
+    stroke: #b8936a;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+
+    opacity: 0;
+
+    animation: loaderSteam 2.4s ease-in-out infinite;
+}
+
+.steam-1 {
+    animation-delay: 2.3s;
+}
+
+.steam-2 {
+    animation-delay: 2.7s;
+}
+
+.steam-3 {
+    animation-delay: 3.1s;
+}
+
+/* =========================================================
+   BRAND NAME
+========================================================= */
+
+.loader-name {
+    display: flex;
+    gap: 2px;
+
+    margin: 22px 0 0;
+
+    color: #3d2c22;
+    font-family: "Montserrat", "Poppins", Arial, sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 6px;
+}
+
+/* Each letter comes up one after the other */
+.loader-name span {
+    display: inline-block;
+
+    opacity: 0;
+    transform: translateY(18px);
+
+    animation: loaderLetter 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.loader-name span:nth-child(1) { animation-delay: 1.6s; }
+.loader-name span:nth-child(2) { animation-delay: 1.68s; }
+.loader-name span:nth-child(3) { animation-delay: 1.76s; }
+.loader-name span:nth-child(4) { animation-delay: 1.84s; }
+.loader-name span:nth-child(5) { animation-delay: 1.92s; }
+.loader-name span:nth-child(6) { animation-delay: 2s; }
+.loader-name span:nth-child(7) { animation-delay: 2.08s; }
+.loader-name span:nth-child(8) { animation-delay: 2.16s; }
+
+/* Space between BREW and CO. */
+.loader-name .loader-space {
+    width: 10px;
+}
+
+/* "COFFEE & MORE" opens from the middle */
+.loader-subtitle {
+    margin: 10px 0 0;
+
+    color: #c2a585;
+    font-family: "Montserrat", "Poppins", Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+
+    opacity: 0;
+
+    animation: loaderSubtitle 1s ease 2.5s forwards;
+}
+
+/* =========================================================
+   PROGRESS BAR
+========================================================= */
+
+.loader-progress {
+    width: 200px;
+    margin-top: 34px;
+
+    opacity: 0;
+
+    animation: loaderFadeIn 0.6s ease 0.4s forwards;
+}
+
+.loader-bar {
+    position: relative;
+
+    height: 3px;
+
+    overflow: hidden;
+
+    border-radius: 3px;
+
+    background: rgba(74, 52, 39, 0.1);
+}
+
+/* The fill (its width is set by loader.js) */
+.loader-bar-fill {
+    position: relative;
+
+    width: 0%;
+    height: 100%;
+
+    border-radius: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #b8936a,
+            #4a3427
+        );
+}
+
+/* Light moving across the bar */
+.loader-bar-fill::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -40px;
+
+    width: 40px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.8),
+            transparent
+        );
+
+    animation: loaderBarShine 1.2s linear infinite;
+}
+
+/* "Brewing your menu" + percentage */
+.loader-info {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 10px;
+
+    color: #8a7d72;
+    font-family: "Poppins", Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.loader-percent {
+    color: #3d2c22;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Three dots after "Brewing your menu" */
+.loader-dots span {
+    animation: loaderDot 1.4s ease-in-out infinite;
+}
+
+.loader-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loader-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+/* Draw a line */
+@keyframes loaderDraw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Coffee goes up */
+@keyframes loaderFill {
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* Steam rises and disappears */
+@keyframes loaderSteam {
+    0% {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    30% {
+        opacity: 0.9;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-14px);
+    }
+}
+
+/* Cup floats up and down */
+@keyframes loaderFloat {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Rings turn */
+@keyframes loaderSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Glow breathes */
+@keyframes loaderGlow {
+    0%,
+    100% {
+        opacity: 0.6;
+        transform: scale(0.9);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.15);
+    }
+}
+
+/* Letter comes up */
+@keyframes loaderLetter {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Subtitle opens */
+@keyframes loaderSubtitle {
+    from {
+        opacity: 0;
+        letter-spacing: 1px;
+    }
+
+    to {
+        opacity: 1;
+        letter-spacing: 5px;
+    }
+}
+
+/* Simple fade in */
+@keyframes loaderFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Light on the bar */
+@keyframes loaderBarShine {
+    to {
+        left: 100%;
+    }
+}
+
+/* Dots blink */
+@keyframes loaderDot {
+    0%,
+    100% {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Safety: hide the loader if JavaScript is off */
+@keyframes loaderSafety {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 480px) {
+    .loader-cup-box {
+        width: 140px;
+        height: 140px;
+    }
+
+    .loader-cup {
+        width: 80px;
+        height: 68px;
+    }
+
+    .loader-name {
+        font-size: 27px;
+        letter-spacing: 4px;
+    }
+
+    .loader-progress {
+        width: 170px;
+    }
+}
+
+/* =========================================================
+   REDUCED MOTION (no moving parts, just fade)
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .loader-ring,
+    .loader-ring-2,
+    .loader-glow,
+    .loader-cup,
+    .steam,
+    .loader-bar-fill::after,
+    .loader-dots span {
+        animation: none;
+    }
+
+    .cup-line {
+        stroke-dashoffset: 0;
+        animation: none;
+    }
+
+    .cup-coffee,
+    .cup-foam {
+        transform: none;
+        animation: none;
+    }
+
+    .loader-name span,
+    .loader-subtitle {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
+
+    .loader {
+        transition: opacity 0.5s ease;
+    }
+
+    .loader.loader-done {
+        clip-path: none;
+        opacity: 0;
+    }
+}
+/* The page animations wait until the loader is done */
+body.is-loading main,
+body.is-loading main * {
+    animation-play-state: paused !important;
+}

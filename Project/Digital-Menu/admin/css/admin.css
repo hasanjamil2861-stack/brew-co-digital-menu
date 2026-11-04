@@ -1,0 +1,3619 @@
+/* =========================================================
+   BREW CO. ADMIN PANEL
+   Premium Restaurant Dashboard
+
+   1.  Base
+   2.  Background
+   3.  Navbar + logo + links + icons
+   4.  Page layout
+   5.  Dashboard
+   6.  Form + inputs + file upload
+   7.  Buttons
+   8.  Search
+   9.  Tables + badges + images
+   10. Trash page
+   11. Delete popup
+   12. Animations
+   13. Responsive
+   14. Reduced motion
+   15. Same width table buttons
+========================================================= */
+
+/* =========================================================
+   1. BASE
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background: #f7f3ee;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+
+    color: #2f2119;
+    font-family: "Poppins", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+
+    isolation: isolate;
+    overflow-x: hidden;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+/* Anything with "hidden" is really hidden (also table rows on mobile) */
+[hidden] {
+    display: none !important;
+}
+
+/* =========================================================
+   2. BACKGROUND
+========================================================= */
+
+/* Soft coffee-colored light spots */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 4% 6%,
+            rgba(184, 147, 106, 0.16),
+            transparent 26%
+        ),
+
+        radial-gradient(
+            circle at 96% 10%,
+            rgba(74, 52, 39, 0.08),
+            transparent 25%
+        ),
+
+        radial-gradient(
+            circle at 90% 94%,
+            rgba(194, 165, 133, 0.12),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 6% 92%,
+            rgba(161, 124, 85, 0.07),
+            transparent 25%
+        ),
+
+        linear-gradient(
+            135deg,
+            #faf7f2 0%,
+            #f7f3ee 45%,
+            #f9f6f1 75%,
+            #f5f0e9 100%
+        );
+}
+
+/* Very light grid that fades on the edges */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+
+    pointer-events: none;
+    opacity: 0.5;
+
+    background-image:
+        linear-gradient(
+            rgba(74, 52, 39, 0.028) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(74, 52, 39, 0.028) 1px,
+            transparent 1px
+        );
+
+    background-size: 42px 42px;
+
+    mask-image:
+        radial-gradient(
+            ellipse at center,
+            black 0%,
+            rgba(0, 0, 0, 0.7) 55%,
+            transparent 100%
+        );
+
+    -webkit-mask-image:
+        radial-gradient(
+            ellipse at center,
+            black 0%,
+            rgba(0, 0, 0, 0.7) 55%,
+            transparent 100%
+        );
+}
+
+/* =========================================================
+   3. NAVBAR
+========================================================= */
+
+/* White glass bar that stays on top */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    padding: 14px 34px;
+
+    border-bottom: 1px solid rgba(232, 223, 211, 0.9);
+
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    box-shadow:
+        0 6px 24px rgba(47, 33, 25, 0.05),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* ---------- Logo ---------- */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    text-decoration: none;
+}
+
+/* Cup icon in a small box */
+.logo-cup {
+    width: 40px;
+    height: 40px;
+    padding: 7px;
+
+    border: 1px solid #eee3d5;
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fbf7f1,
+            #f3eadf
+        );
+
+    fill: none;
+    stroke: #3d2c22;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    box-shadow:
+        0 8px 18px rgba(74, 52, 39, 0.1),
+        inset 0 1px 0 #ffffff;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.logo:hover .logo-cup {
+    transform: translateY(-2px) rotate(-3deg);
+
+    box-shadow:
+        0 12px 24px rgba(74, 52, 39, 0.15),
+        inset 0 1px 0 #ffffff;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.logo-name {
+    color: #2f2119;
+    font-family: "Montserrat", "Poppins", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.logo-subtitle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    margin-top: 5px;
+
+    color: #b8936a;
+    font-family: "Montserrat", "Poppins", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2.6px;
+}
+
+/* Green "live" dot before ADMIN PANEL */
+.logo-subtitle::before {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+    background: #10b981;
+
+    box-shadow:
+        0 0 0 3px rgba(16, 185, 129, 0.12),
+        0 0 10px rgba(16, 185, 129, 0.3);
+
+    animation: adminPulse 2.1s ease-in-out infinite;
+}
+
+/* ---------- Links ---------- */
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+
+    padding: 5px;
+
+    border: 1px solid #eee5da;
+    border-radius: 14px;
+
+    background: rgba(247, 243, 238, 0.85);
+
+    box-shadow: inset 0 1px 2px rgba(47, 33, 25, 0.04);
+}
+
+/* Icon + text side by side */
+.nav-links a {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 8px 16px;
+
+    border-radius: 10px;
+
+    color: #7a6a5f;
+    font-size: 13.5px;
+    font-weight: 500;
+    text-decoration: none;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: #2f2119;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+/* Current page */
+.nav-links a.active {
+    color: #4a3427;
+    font-weight: 600;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 3px 10px rgba(74, 52, 39, 0.1),
+        0 1px 2px rgba(74, 52, 39, 0.06);
+}
+
+/* "View Menu" link (last one) */
+.nav-links a:last-child {
+    color: #a17c55;
+    font-weight: 600;
+}
+
+.nav-links a:last-child:hover {
+    color: #ffffff;
+    background: #b8936a;
+}
+
+/* ---------- Icons (I Added them by AI) ---------- */
+
+/* The icon takes the same color as the text */
+.nav-links a::before {
+    content: "";
+    flex-shrink: 0;
+
+    width: 16px;
+    height: 16px;
+
+    background-color: currentColor;
+
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+
+    transition: transform 0.25s ease;
+}
+
+/* Icon moves a little on hover */
+.nav-links a:hover::before {
+    transform: translateY(-1px) scale(1.12);
+}
+
+.nav-links a.active::before {
+    transform: scale(1.08);
+}
+
+/* Dashboard icon */
+.nav-links a[href="index.html"]::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='7' height='9' rx='1.5'/%3E%3Crect x='14' y='3' width='7' height='5' rx='1.5'/%3E%3Crect x='14' y='12' width='7' height='9' rx='1.5'/%3E%3Crect x='3' y='16' width='7' height='5' rx='1.5'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='7' height='9' rx='1.5'/%3E%3Crect x='14' y='3' width='7' height='5' rx='1.5'/%3E%3Crect x='14' y='12' width='7' height='9' rx='1.5'/%3E%3Crect x='3' y='16' width='7' height='5' rx='1.5'/%3E%3C/svg%3E");
+}
+
+/* Categories icon */
+.nav-links a[href="categories.html"]::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 7.5A2.5 2.5 0 0 1 5.5 5H9l2 2h7.5A2.5 2.5 0 0 1 21 9.5v8a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 7.5A2.5 2.5 0 0 1 5.5 5H9l2 2h7.5A2.5 2.5 0 0 1 21 9.5v8a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5z'/%3E%3C/svg%3E");
+}
+
+/* Items icon */
+.nav-links a[href="items.html"]::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z'/%3E%3Cpath d='M17 10h1.5a2.5 2.5 0 0 1 0 5H17'/%3E%3Cpath d='M8 3.5v2M12 3.5v2'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z'/%3E%3Cpath d='M17 10h1.5a2.5 2.5 0 0 1 0 5H17'/%3E%3Cpath d='M8 3.5v2M12 3.5v2'/%3E%3C/svg%3E");
+}
+
+/* Trash icon */
+.nav-links a[href="trash.html"]::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6'/%3E%3C/svg%3E");
+}
+
+/* View Menu icon */
+.nav-links a[href="/"]::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 4h6v6M20 4l-9 9'/%3E%3Cpath d='M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 4h6v6M20 4l-9 9'/%3E%3Cpath d='M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5'/%3E%3C/svg%3E");
+}
+
+/* =========================================================
+   4. PAGE LAYOUT
+========================================================= */
+
+.container {
+    width: 100%;
+    max-width: 1240px;
+    min-width: 0;
+
+    margin: 0 auto;
+    padding: 30px 28px 50px;
+}
+
+/* Page title */
+h1 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 26px;
+
+    color: #2f2119;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1px;
+
+    animation: adminFadeUp 0.45s ease both;
+}
+
+/* Small accent bar before the title */
+h1::before {
+    content: "";
+
+    width: 5px;
+    height: 24px;
+
+    border-radius: 6px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #b8936a,
+            #4a3427
+        );
+}
+
+/* Title on the left, a button on the right (Trash page) */
+.page-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+
+    margin-bottom: 6px;
+}
+
+.page-head h1 {
+    margin-bottom: 0;
+}
+
+/* Small text under the title */
+.page-subtitle {
+    margin-bottom: 26px;
+
+    color: #8a7d72;
+    font-size: 14px;
+
+    animation: adminFadeUp 0.5s ease both;
+}
+
+/* =========================================================
+   5. DASHBOARD
+========================================================= */
+
+/* Space between the dashboard sections */
+.dashboard > section + section {
+    margin-top: 20px;
+}
+
+/* ---------- 5.1 Hero header ---------- */
+
+.dash-hero {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+
+    min-height: 190px;
+    padding: 32px 34px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(234, 225, 214, 0.95);
+    border-radius: 24px;
+
+    background:
+        radial-gradient(circle at 88% 10%, rgba(184, 147, 106, 0.28), transparent 26%),
+        radial-gradient(circle at 70% 100%, rgba(74, 52, 39, 0.08), transparent 32%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.97), rgba(251, 247, 241, 0.97));
+
+    box-shadow:
+        0 18px 46px rgba(47, 33, 25, 0.08),
+        0 4px 12px rgba(184, 147, 106, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+    animation: adminFadeUp 0.5s ease both;
+}
+
+/* Brand line on top */
+.dash-hero::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 4px;
+
+    background: linear-gradient(90deg, #b8936a, #a17c55, #4a3427);
+}
+
+/* Floating circles on the right */
+.dash-hero::before {
+    content: "";
+    position: absolute;
+    top: -190px;
+    right: -120px;
+
+    width: 370px;
+    height: 370px;
+
+    border: 1px solid rgba(184, 147, 106, 0.18);
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 45px rgba(184, 147, 106, 0.04),
+        0 0 0 90px rgba(184, 147, 106, 0.025);
+
+    animation: dashOrbFloat 10s ease-in-out infinite;
+}
+
+/* Small grid that fades to the left */
+.dash-hero-grid {
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+    opacity: 0.5;
+
+    background-image:
+        linear-gradient(rgba(74, 52, 39, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74, 52, 39, 0.045) 1px, transparent 1px);
+
+    background-size: 28px 28px;
+
+    mask-image: linear-gradient(to right, transparent 30%, black 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 30%, black 100%);
+}
+
+.dash-hero-content,
+.dash-hero-right {
+    position: relative;
+    z-index: 2;
+
+    min-width: 0;
+}
+
+/* "LIVE MENU OVERVIEW" */
+.dash-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-bottom: 14px;
+
+    color: #a17c55;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2.2px;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+    background: #10b981;
+
+    box-shadow:
+        0 0 0 4px rgba(16, 185, 129, 0.1),
+        0 0 12px rgba(16, 185, 129, 0.3);
+
+    animation: adminPulse 2.1s ease-in-out infinite;
+}
+
+/* Title */
+.dash-title-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.dash-title-icon {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 62px;
+    height: 62px;
+
+    border: 1px solid #eee3d5;
+    border-radius: 18px;
+
+    background: linear-gradient(145deg, #fbf7f1, #f3eadf);
+    color: #4a3427;
+
+    box-shadow:
+        0 11px 25px rgba(74, 52, 39, 0.12),
+        inset 0 1px 0 #ffffff;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.dash-title-icon:hover {
+    transform: translateY(-3px) rotate(-3deg);
+
+    box-shadow:
+        0 15px 30px rgba(74, 52, 39, 0.17),
+        inset 0 1px 0 #ffffff;
+}
+
+.dash-title-icon svg {
+    width: 26px;
+    height: 26px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Green dot in the corner of the icon */
+.dash-title-status {
+    position: absolute;
+    right: -4px;
+    bottom: -4px;
+
+    width: 16px;
+    height: 16px;
+
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+
+    background: #10b981;
+
+    animation: dashStatusGlow 2.7s ease-in-out infinite;
+}
+
+/* The dashboard title has no small bar before it */
+.dash-title-text h1 {
+    margin: 0 0 8px;
+
+    font-size: 40px;
+    letter-spacing: -1.6px;
+
+    animation: none;
+}
+
+.dash-title-text h1::before {
+    display: none;
+}
+
+.dash-title-text p {
+    max-width: 560px;
+
+    color: #8a7d72;
+    font-size: 13.5px;
+    line-height: 1.7;
+}
+
+/* Right side */
+.dash-hero-right {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+}
+
+/* Glass card with a shine that moves */
+.dash-health {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    min-width: 250px;
+    padding: 13px 16px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(234, 225, 214, 0.95);
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 7px 20px rgba(47, 33, 25, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.dash-health::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+
+    width: 70%;
+    height: 100%;
+
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+
+    transform: skewX(-20deg);
+
+    animation: dashGlassShine 4.5s linear infinite;
+}
+
+.dash-health-icon {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 11px;
+
+    background: #ecfdf3;
+    color: #067647;
+}
+
+.dash-health-icon svg {
+    width: 20px;
+    height: 20px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.dash-health > div {
+    position: relative;
+    z-index: 1;
+
+    min-width: 0;
+}
+
+.dash-health span {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #aa9d92;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.dash-health strong {
+    display: block;
+
+    color: #2f2119;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.dash-health-score {
+    position: relative;
+    z-index: 1;
+
+    margin-left: auto;
+
+    color: #067647;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+/* Today's date */
+.dash-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    min-height: 42px;
+    padding: 0 14px;
+
+    border: 1px solid #ece6dd;
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.86);
+    color: #8a7d72;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    box-shadow: 0 5px 15px rgba(47, 33, 25, 0.04);
+}
+
+.dash-date svg {
+    flex-shrink: 0;
+
+    width: 16px;
+    height: 16px;
+
+    fill: none;
+    stroke: #b8936a;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* ---------- 5.2 KPI cards ---------- */
+
+.dash-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.stat-card {
+    position: relative;
+
+    display: block;
+
+    min-width: 0;
+    padding: 19px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(234, 225, 214, 0.95);
+    border-radius: 18px;
+
+    background: linear-gradient(145deg, #ffffff, #fdfbf8);
+    color: inherit;
+    text-decoration: none;
+
+    box-shadow:
+        0 7px 21px rgba(47, 33, 25, 0.05),
+        0 2px 4px rgba(47, 33, 25, 0.02);
+
+    transition:
+        transform 0.28s ease,
+        box-shadow 0.28s ease,
+        border-color 0.28s ease;
+
+    animation: adminCardIn 0.5s ease both;
+}
+
+/* Cards come in one after the other */
+.stat-card:nth-child(2) {
+    animation-delay: 0.05s;
+}
+
+.stat-card:nth-child(3) {
+    animation-delay: 0.1s;
+}
+
+.stat-card:nth-child(4) {
+    animation-delay: 0.15s;
+}
+
+/* Colored line on top (shows on hover) */
+.stat-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    opacity: 0;
+
+    background: linear-gradient(90deg, #b8936a, #a17c55, #4a3427);
+
+    transition: opacity 0.28s ease;
+}
+
+.stat-card:hover::before {
+    opacity: 1;
+}
+
+/* Circle in the corner that grows on hover */
+.stat-card::after {
+    content: "";
+    position: absolute;
+    right: -55px;
+    bottom: -60px;
+
+    width: 125px;
+    height: 125px;
+
+    border: 1px solid rgba(184, 147, 106, 0.14);
+    border-radius: 50%;
+
+    transition: transform 0.45s ease;
+}
+
+.stat-card:hover::after {
+    transform: scale(1.5);
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+
+    border-color: #e3d6c6;
+
+    box-shadow:
+        0 18px 34px rgba(47, 33, 25, 0.1),
+        0 4px 12px rgba(184, 147, 106, 0.08);
+}
+
+/* Icon + arrow */
+.stat-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 16px;
+}
+
+.stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 46px;
+    height: 46px;
+
+    border-radius: 13px;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.stat-icon svg,
+.stat-arrow {
+    width: 21px;
+    height: 21px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.stat-card:hover .stat-icon {
+    transform: translateY(-2px) scale(1.07) rotate(-3deg);
+
+    box-shadow: 0 8px 17px rgba(74, 52, 39, 0.12);
+}
+
+.stat-arrow {
+    width: 18px;
+    height: 18px;
+
+    color: #cdbfb0;
+
+    transition:
+        transform 0.25s ease,
+        color 0.25s ease;
+}
+
+.stat-card:hover .stat-arrow {
+    color: #4a3427;
+    transform: translate(3px, -3px);
+}
+
+.stat-label {
+    color: #8a7d72;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.stat-number {
+    margin: 4px 0 6px;
+
+    color: #2f2119;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.8px;
+}
+
+.stat-note {
+    color: #aa9d92;
+    font-size: 11.5px;
+}
+
+/* Icon colors */
+.stat-brown .stat-icon {
+    color: #4a3427;
+    background: linear-gradient(135deg, #f6efe6, #ecdfcf);
+}
+
+.stat-tan .stat-icon {
+    color: #a17c55;
+    background: linear-gradient(135deg, #fbf6ef, #f3e7d6);
+}
+
+.stat-green .stat-icon {
+    color: #067647;
+    background: linear-gradient(135deg, #ecfdf3, #d1fadf);
+}
+
+.stat-grey .stat-icon {
+    color: #8a7d72;
+    background: linear-gradient(135deg, #f6f3ef, #ebe5de);
+}
+
+/* ---------- 5.3 Panels (shared) ---------- */
+
+.dash-panel {
+    min-width: 0;
+    padding: 22px;
+
+    border: 1px solid rgba(234, 225, 214, 0.95);
+    border-radius: 18px;
+
+    background: linear-gradient(145deg, #ffffff, #fdfbf8);
+
+    box-shadow: 0 7px 20px rgba(47, 33, 25, 0.05);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    animation: adminFadeUp 0.5s ease both;
+    animation-delay: 0.15s;
+}
+
+/* Small uppercase text above a title */
+.panel-eyebrow {
+    margin-bottom: 6px;
+
+    color: #a17c55;
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+}
+
+.panel-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+
+    margin-bottom: 20px;
+}
+
+.panel-head h2 {
+    color: #2f2119;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.panel-head p {
+    margin-top: 2px;
+
+    color: #8a7d72;
+    font-size: 12.5px;
+}
+
+/* Small label on the right of a panel title */
+.panel-badge {
+    flex-shrink: 0;
+
+    padding: 6px 10px;
+
+    border: 1px solid #ece6dd;
+    border-radius: 9px;
+
+    background: #faf7f2;
+    color: #7a6a5f;
+
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+a.panel-badge:hover {
+    background: #4a3427;
+    color: #ffffff;
+}
+
+/* Message when there is no data */
+.panel-empty {
+    padding: 20px 0;
+
+    color: #8a7d72;
+    font-size: 14px;
+    text-align: center;
+    list-style: none;
+}
+
+/* ---------- 5.4 Stock style chart ---------- */
+
+.chart-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+
+    margin-bottom: 8px;
+}
+
+/* Big number + change */
+.chart-value-row {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.chart-value-row strong {
+    color: #2f2119;
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1px;
+}
+
+.chart-change {
+    padding: 3px 9px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Up = green, no change = grey */
+.chart-change.up {
+    background: #ecfdf3;
+    color: #067647;
+}
+
+.chart-change.flat {
+    background: #f3efea;
+    color: #8a7d72;
+}
+
+.chart-sub {
+    margin-top: 4px;
+
+    color: #8a7d72;
+    font-size: 12.5px;
+}
+
+/* 7D / 30D / 90D */
+.chart-periods {
+    display: flex;
+    gap: 3px;
+
+    padding: 4px;
+
+    border: 1px solid #ece6dd;
+    border-radius: 11px;
+
+    background: #faf7f2;
+}
+
+.chart-periods button {
+    padding: 6px 12px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: transparent;
+    color: #8a7d72;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.chart-periods button:hover {
+    color: #2f2119;
+}
+
+.chart-periods button.active {
+    background: #ffffff;
+    color: #4a3427;
+
+    box-shadow: 0 2px 8px rgba(74, 52, 39, 0.12);
+}
+
+/* Chart box */
+.chart-box {
+    position: relative;
+
+    width: 100%;
+    min-height: 220px;
+}
+
+.chart-svg {
+    display: block;
+
+    overflow: visible;
+}
+
+/* Grid lines and labels stay light */
+.chart-grid {
+    stroke: #f0e9e0;
+    stroke-width: 1;
+}
+
+.chart-label {
+    fill: #aa9d92;
+    font-family: inherit;
+    font-size: 11px;
+}
+
+/* Area under the line */
+.chart-area {
+    animation: dashAreaIn 1s ease both;
+}
+
+/* The line draws from left to right */
+.chart-line {
+    fill: none;
+    stroke: #4a3427;
+    stroke-width: 2;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+
+    transition: stroke-dashoffset 1.2s ease-out;
+}
+
+/* Last point + pulse around it */
+.chart-dot {
+    fill: #4a3427;
+    stroke: #ffffff;
+    stroke-width: 2;
+}
+
+.chart-pulse {
+    fill: rgba(184, 147, 106, 0.35);
+
+    transform-box: fill-box;
+    transform-origin: center;
+
+    animation: dashChartPulse 2s ease-out infinite;
+}
+
+/* Crosshair on hover */
+.chart-cross-line {
+    stroke: #b8936a;
+    stroke-width: 1;
+    stroke-dasharray: 4 4;
+}
+
+.chart-cross-dot {
+    fill: #b8936a;
+    stroke: #ffffff;
+    stroke-width: 2;
+}
+
+/* Tooltip */
+.chart-tooltip {
+    position: absolute;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 8px 12px;
+
+    border-radius: 10px;
+
+    background: #2f2119;
+    color: #ffffff;
+
+    pointer-events: none;
+    white-space: nowrap;
+
+    box-shadow: 0 10px 24px rgba(30, 20, 14, 0.25);
+}
+
+.chart-tooltip span {
+    color: #d9c3a8;
+    font-size: 11px;
+}
+
+.chart-tooltip strong {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* ---------- 5.5 Summary cards ---------- */
+
+.dash-summary {
+    display: grid;
+    grid-template-columns: 1.45fr 0.8fr 0.8fr;
+    gap: 16px;
+}
+
+.summary-card {
+    position: relative;
+
+    min-width: 0;
+    min-height: 220px;
+    padding: 22px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(234, 225, 214, 0.95);
+    border-radius: 18px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 7px 20px rgba(47, 33, 25, 0.05),
+        0 2px 4px rgba(47, 33, 25, 0.02);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    animation: adminCardIn 0.5s ease both;
+    animation-delay: 0.2s;
+}
+
+.summary-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 15px 29px rgba(47, 33, 25, 0.09),
+        0 4px 12px rgba(184, 147, 106, 0.06);
+}
+
+.summary-small-title {
+    color: #2f2119;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+/* Main summary (dark brown) */
+.summary-main {
+    display: flex;
+    justify-content: space-between;
+    gap: 22px;
+
+    border-color: #4a3427;
+
+    background:
+        radial-gradient(circle at 92% 12%, rgba(184, 147, 106, 0.38), transparent 34%),
+        radial-gradient(circle at 10% 100%, rgba(161, 124, 85, 0.25), transparent 40%),
+        linear-gradient(140deg, #5a4132, #3b2a20);
+
+    color: #ffffff;
+}
+
+/* Floating circles */
+.summary-orb {
+    position: absolute;
+    right: -72px;
+    bottom: -105px;
+
+    width: 245px;
+    height: 245px;
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 35px rgba(255, 255, 255, 0.03),
+        0 0 0 70px rgba(255, 255, 255, 0.02);
+
+    animation: dashOrbit 10s ease-in-out infinite;
+}
+
+.summary-content,
+.summary-score {
+    position: relative;
+    z-index: 1;
+}
+
+.summary-main .panel-eyebrow {
+    color: #d9c3a8;
+}
+
+.summary-content h2 {
+    max-width: 440px;
+    margin-bottom: 10px;
+
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.summary-content p {
+    max-width: 440px;
+
+    color: #e8dccd;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.summary-score {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
+
+.summary-score strong {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -1.5px;
+}
+
+.summary-score span {
+    margin-top: 6px;
+
+    color: #d9c3a8;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* Circle progress */
+.circle-progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 110px;
+    height: 110px;
+    margin: 16px auto 14px;
+
+    border-radius: 50%;
+
+    background: #efe7dc;
+
+    box-shadow: 0 7px 17px rgba(74, 52, 39, 0.12);
+
+    animation: dashCircleIn 0.85s ease-out both;
+}
+
+.circle-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 84px;
+    height: 84px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    box-shadow: inset 0 0 0 1px #f0e9e0;
+}
+
+.circle-inner strong {
+    color: #2f2119;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.circle-inner span {
+    margin-top: 3px;
+
+    color: #aa9d92;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+/* 3 small numbers under the circle */
+.mini-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+}
+
+.mini-stats div {
+    padding: 8px 4px;
+
+    border: 1px solid #f0e9e0;
+    border-radius: 10px;
+
+    background: #fcfaf7;
+    text-align: center;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.mini-stats div:hover {
+    transform: translateY(-2px);
+
+    border-color: #e3d6c6;
+}
+
+.mini-stats strong {
+    display: block;
+
+    color: #2f2119;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.mini-stats span {
+    color: #aa9d92;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+/* Price range */
+.price-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin-top: 16px;
+}
+
+.price-list div {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2px 10px;
+
+    padding: 12px;
+
+    border: 1px solid #f0e9e0;
+    border-radius: 12px;
+
+    background: #fcfaf7;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.price-list div:hover {
+    transform: translateX(3px);
+
+    background: #faf5ee;
+}
+
+.price-list span {
+    color: #8a7d72;
+    font-size: 11.5px;
+    font-weight: 600;
+}
+
+.price-list strong {
+    grid-row: span 2;
+    align-self: center;
+
+    color: #2f2119;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+/* Item name (cut with "..." if too long) */
+.price-list small {
+    overflow: hidden;
+
+    color: #2f2119;
+    font-size: 12.5px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ---------- 5.6 Items per category + latest items ---------- */
+
+.dash-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 16px;
+}
+
+/* Bars */
+.bars {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Name | bar | number */
+.bar-row {
+    display: grid;
+    grid-template-columns: minmax(90px, 150px) 1fr 32px;
+    align-items: center;
+    gap: 14px;
+}
+
+.bar-label {
+    min-width: 0;
+}
+
+.bar-label span {
+    display: block;
+
+    overflow: hidden;
+
+    color: #2f2119;
+    font-size: 13px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.bar-label small {
+    color: #aa9d92;
+    font-size: 11px;
+}
+
+.bar-track {
+    height: 10px;
+
+    overflow: hidden;
+
+    border-radius: 0 4px 4px 0;
+
+    background: #f2ece4;
+
+    box-shadow: inset 0 1px 2px rgba(47, 33, 25, 0.04);
+}
+
+/* Colored part grows from the left */
+.bar-fill {
+    position: relative;
+
+    height: 100%;
+    min-width: 4px;
+
+    overflow: hidden;
+
+    border-radius: 0 4px 4px 0;
+
+    background: linear-gradient(90deg, #a17c55, #b8936a);
+
+    transform-origin: left;
+
+    animation: dashBarIn 0.9s ease-out both;
+}
+
+/* Inactive category = grey bar */
+.bar-fill-off {
+    background: #cdbfb0;
+}
+
+/* Light that moves across the bar */
+.bar-fill::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -60px;
+
+    width: 50px;
+
+    background: rgba(255, 255, 255, 0.35);
+
+    transform: skewX(-20deg);
+
+    animation: dashShine 2.8s linear infinite;
+}
+
+.bar-row:hover .bar-fill {
+    background: #4a3427;
+}
+
+.bar-value {
+    color: #2f2119;
+    font-size: 13px;
+    font-weight: 800;
+    text-align: right;
+}
+
+/* Latest items */
+.latest-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    list-style: none;
+}
+
+.latest-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 9px 10px;
+
+    border-radius: 12px;
+
+    background: #fcfaf7;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+
+    animation: adminRowIn 0.4s ease both;
+}
+
+.latest-item:hover {
+    transform: translateX(3px);
+
+    background: #f8f2ea;
+}
+
+.latest-thumb {
+    flex-shrink: 0;
+
+    width: 40px;
+    height: 40px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    background: #f2ece4;
+}
+
+.latest-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.latest-name {
+    overflow: hidden;
+
+    color: #2f2119;
+    font-size: 13.5px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.latest-category {
+    color: #8a7d72;
+    font-size: 12px;
+}
+
+.latest-price {
+    flex-shrink: 0;
+
+    color: #2f2119;
+    font-size: 13.5px;
+    font-weight: 700;
+}
+
+/* ---------- 5.7 Insight cards ---------- */
+
+.dash-insights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.insight-card {
+    position: relative;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    min-width: 0;
+    padding: 18px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(234, 225, 214, 0.95);
+    border-radius: 16px;
+
+    background: linear-gradient(145deg, #ffffff, #fdfbf8);
+    color: inherit;
+    text-decoration: none;
+
+    box-shadow: 0 6px 17px rgba(47, 33, 25, 0.045);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+
+    animation: adminCardIn 0.5s ease both;
+    animation-delay: 0.25s;
+}
+
+/* Line on top (shows on hover) */
+.insight-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+
+    opacity: 0;
+
+    background: linear-gradient(90deg, #b8936a, #4a3427);
+
+    transition: opacity 0.25s ease;
+}
+
+.insight-card:hover::before {
+    opacity: 1;
+}
+
+.insight-card:hover {
+    transform: translateY(-4px);
+
+    border-color: #e3d6c6;
+
+    box-shadow: 0 14px 27px rgba(47, 33, 25, 0.09);
+}
+
+.insight-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 12px;
+}
+
+.insight-icon svg {
+    width: 20px;
+    height: 20px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.insight-grey {
+    color: #8a7d72;
+    background: linear-gradient(135deg, #f6f3ef, #ebe5de);
+}
+
+.insight-tan {
+    color: #a17c55;
+    background: linear-gradient(135deg, #fbf6ef, #f3e7d6);
+}
+
+.insight-red {
+    color: #b42318;
+    background: linear-gradient(135deg, #fef3f2, #fee4e2);
+}
+
+.insight-card > div {
+    min-width: 0;
+}
+
+.insight-card > div > span {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #aa9d92;
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.insight-card h3 {
+    margin-bottom: 4px;
+
+    color: #2f2119;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.insight-card p {
+    color: #8a7d72;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* ---------- 5.8 Dashboard animations ---------- */
+
+/* Hero circles float slowly */
+@keyframes dashOrbFloat {
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-18px, 14px) scale(1.06);
+    }
+}
+
+/* Summary circles move slowly */
+@keyframes dashOrbit {
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-14px, 10px) scale(1.05);
+    }
+}
+
+/* Green dot glow */
+@keyframes dashStatusGlow {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+
+    50% {
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.12);
+    }
+}
+
+/* Shine across the glass card */
+@keyframes dashGlassShine {
+    0% {
+        left: -100%;
+    }
+
+    45%,
+    100% {
+        left: 130%;
+    }
+}
+
+/* Bars grow from the left */
+@keyframes dashBarIn {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/* Shine across the bars */
+@keyframes dashShine {
+    0% {
+        left: -60px;
+    }
+
+    55%,
+    100% {
+        left: 110%;
+    }
+}
+
+/* Circle appears */
+@keyframes dashCircleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.78);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Chart area fades in */
+@keyframes dashAreaIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Pulse around the last point of the chart */
+@keyframes dashChartPulse {
+    from {
+        opacity: 1;
+        transform: scale(0.6);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(2);
+    }
+}
+
+/* ---------- 5.9 Dashboard responsive ---------- */
+
+/* Laptop */
+@media (max-width: 1200px) {
+    .dash-summary {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .summary-main {
+        grid-column: 1 / -1;
+        min-height: 0;
+    }
+}
+
+/* Small laptop / big tablet */
+@media (max-width: 1050px) {
+    .dash-hero {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .dash-hero-right {
+        flex-direction: row;
+    }
+
+    .dash-health {
+        flex: 1;
+    }
+
+    .dash-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dash-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .dash-insights {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Small tablet */
+@media (max-width: 768px) {
+    .dash-hero-right {
+        flex-direction: column;
+    }
+
+    .dash-health {
+        min-width: 0;
+    }
+}
+
+/* Phone */
+@media (max-width: 600px) {
+    .dashboard > section + section {
+        margin-top: 14px;
+    }
+
+    .dash-hero {
+        min-height: 0;
+        padding: 24px 18px 20px;
+
+        border-radius: 20px;
+    }
+
+    .dash-title-row {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .dash-title-icon {
+        width: 50px;
+        height: 50px;
+
+        border-radius: 15px;
+    }
+
+    .dash-title-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .dash-title-text h1 {
+        font-size: 30px;
+        letter-spacing: -1px;
+    }
+
+    .dash-title-text p {
+        font-size: 12.5px;
+    }
+
+    .dash-stats {
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 14px;
+    }
+
+    .stat-top {
+        margin-bottom: 12px;
+    }
+
+    .stat-icon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .stat-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .stat-number {
+        font-size: 24px;
+    }
+
+    .stat-note {
+        font-size: 10.5px;
+    }
+
+    .dash-panel,
+    .summary-card {
+        padding: 16px;
+    }
+
+    .chart-value-row strong {
+        font-size: 28px;
+    }
+
+    .chart-periods {
+        width: 100%;
+    }
+
+    .chart-periods button {
+        flex: 1;
+    }
+
+    .dash-summary {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .summary-main {
+        flex-direction: column;
+    }
+
+    .summary-score {
+        align-items: flex-start;
+    }
+
+    .summary-score strong {
+        font-size: 32px;
+    }
+
+    .summary-card {
+        min-height: 0;
+    }
+
+    .bar-row {
+        grid-template-columns: minmax(70px, 100px) 1fr 26px;
+        gap: 10px;
+    }
+
+    .dash-grid,
+    .dash-insights {
+        gap: 14px;
+    }
+}
+
+/* Small phone */
+@media (max-width: 400px) {
+    .stat-arrow {
+        display: none;
+    }
+
+    .stat-label {
+        font-size: 11px;
+    }
+
+    .stat-number {
+        font-size: 22px;
+    }
+}
+
+/* Very small phone: 1 card per row */
+@media (max-width: 340px) {
+    .dash-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================================
+   6. FORM
+========================================================= */
+
+.form-box {
+    position: relative;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 12px;
+
+    margin-bottom: 22px;
+    padding: 18px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(234, 225, 214, 0.95);
+    border-radius: 18px;
+
+    background:
+        radial-gradient(
+            circle at 96% 0%,
+            rgba(184, 147, 106, 0.1),
+            transparent 30%
+        ),
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fdfbf8
+        );
+
+    box-shadow:
+        0 8px 22px rgba(47, 33, 25, 0.05);
+
+    animation: adminFadeUp 0.5s ease both;
+}
+
+/* Brand line on top of the form */
+.form-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #b8936a,
+            #a17c55,
+            #4a3427
+        );
+}
+
+/* ---------- Inputs ---------- */
+
+.form-box input,
+.form-box select,
+.form-box textarea {
+    flex: 1;
+
+    min-width: 200px;
+    height: 42px;
+    padding: 0 14px;
+
+    border: 1px solid #e5dccf;
+    border-radius: 12px;
+
+    background: #fcfaf7;
+    color: #2f2119;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.form-box input::placeholder,
+.form-box textarea::placeholder {
+    color: #aa9d92;
+}
+
+.form-box input:hover,
+.form-box select:hover,
+.form-box textarea:hover {
+    border-color: #d5c6b4;
+}
+
+.form-box input:focus,
+.form-box select:focus,
+.form-box textarea:focus {
+    outline: none;
+
+    border-color: #b8936a;
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 4px rgba(184, 147, 106, 0.16),
+        0 4px 12px rgba(184, 147, 106, 0.08);
+}
+
+.form-box select {
+    cursor: pointer;
+}
+
+/* Description takes the full width */
+.form-box textarea {
+    flex-basis: 100%;
+
+    height: auto;
+    min-height: 80px;
+    padding: 11px 14px;
+
+    resize: vertical;
+}
+
+/* ---------- File upload ---------- */
+
+.form-box input[type="file"] {
+    padding: 10px 12px;
+
+    border-style: dashed;
+
+    color: #8a7d72;
+    cursor: pointer;
+}
+
+.form-box input[type="file"]:hover {
+    border-color: #b8936a;
+    background: #fbf6f0;
+}
+
+/* "Choose file" button inside the input */
+.form-box input[type="file"]::file-selector-button {
+    margin-right: 12px;
+    padding: 5px 13px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #efe6da;
+    color: #4a3427;
+
+    font-family: inherit;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.form-box input[type="file"]::file-selector-button:hover {
+    background: #e5d8c7;
+}
+
+/* =========================================================
+   7. BUTTONS
+========================================================= */
+
+.btn {
+    height: 42px;
+    padding: 0 20px;
+
+    border: none;
+    border-radius: 12px;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+/* Disabled (for example: Empty Trash with nothing inside) */
+.btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* ---------- Main (brown) ---------- */
+
+.btn-main {
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #5a4132,
+            #3b2a20
+        );
+
+    box-shadow:
+        0 8px 18px rgba(59, 42, 32, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.btn-main:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 24px rgba(59, 42, 32, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* ---------- Light (Cancel) ---------- */
+
+.btn-light {
+    color: #4a3427;
+    background: #f2ebe2;
+}
+
+.btn-light:hover {
+    background: #e8ded2;
+}
+
+/* ---------- Red (Delete) ---------- */
+
+.btn-danger {
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #d92d20
+        );
+
+    box-shadow:
+        0 8px 18px rgba(217, 45, 32, 0.22);
+}
+
+.btn-danger:hover {
+    box-shadow:
+        0 12px 24px rgba(217, 45, 32, 0.3);
+}
+
+/* ---------- Small buttons inside the tables ---------- */
+
+.btn-small {
+    height: 32px;
+    margin: 3px 6px 3px 0;
+    padding: 0 12px;
+
+    border: 1px solid #ece3d8;
+    border-radius: 9px;
+
+    background: #faf7f3;
+    color: #4a3427;
+
+    font-size: 12px;
+}
+
+.btn-small:hover {
+    border-color: #4a3427;
+    background: #4a3427;
+    color: #ffffff;
+
+    box-shadow: 0 6px 14px rgba(74, 52, 39, 0.18);
+}
+
+/* Delete button (always the last one in the row) */
+td .btn-small:last-child {
+    margin-right: 0;
+
+    border-color: #fbd5d1;
+    background: #fef3f2;
+    color: #b42318;
+}
+
+td .btn-small:last-child:hover {
+    border-color: #d92d20;
+    background: #d92d20;
+    color: #ffffff;
+
+    box-shadow: 0 6px 14px rgba(217, 45, 32, 0.2);
+}
+
+/* Restore button (Trash page) */
+td .btn-restore {
+    border-color: #c6f0d6;
+    background: #ecfdf3;
+    color: #067647;
+}
+
+td .btn-restore:hover {
+    border-color: #079455;
+    background: #079455;
+    color: #ffffff;
+
+    box-shadow: 0 6px 14px rgba(7, 148, 85, 0.2);
+}
+
+/* =========================================================
+   8. SEARCH
+========================================================= */
+
+.search-box {
+    position: relative;
+
+    margin-bottom: 16px;
+
+    animation: adminFadeUp 0.5s ease both;
+}
+
+/* Magnifier icon */
+.search-box::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 16px;
+
+    width: 18px;
+    height: 18px;
+
+    transform: translateY(-50%);
+    pointer-events: none;
+
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238a7d72' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+.search-box input {
+    width: 100%;
+    height: 44px;
+    padding: 0 16px 0 44px;
+
+    border: 1px solid #e5dccf;
+    border-radius: 14px;
+
+    background: #ffffff;
+    color: #2f2119;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    box-shadow:
+        0 4px 14px rgba(47, 33, 25, 0.04);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.search-box input::placeholder {
+    color: #aa9d92;
+}
+
+.search-box input:focus {
+    outline: none;
+
+    border-color: #b8936a;
+
+    box-shadow:
+        0 0 0 4px rgba(184, 147, 106, 0.16),
+        0 4px 14px rgba(47, 33, 25, 0.04);
+}
+
+/* "No results found" message */
+.no-results {
+    margin-top: 14px;
+    padding: 22px 18px;
+
+    border: 1px dashed #e5dccf;
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.7);
+    color: #8a7d72;
+
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* =========================================================
+   9. TABLES
+========================================================= */
+
+.table-box {
+    min-width: 0;
+
+    overflow-x: auto;
+
+    border: 1px solid rgba(234, 225, 214, 0.95);
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #fdfbf8
+        );
+
+    box-shadow:
+        0 8px 22px rgba(47, 33, 25, 0.05);
+
+    animation: adminFadeUp 0.55s ease both;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 12px 16px;
+
+    border-bottom: 1px solid #f2ece4;
+
+    text-align: left;
+    vertical-align: middle;
+}
+
+/* Table header */
+th {
+    position: sticky;
+    top: 0;
+
+    background: #faf7f2;
+    color: #8a7d72;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* Long text goes to a new line instead of making the table wider */
+td {
+    color: #4b3b31;
+
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+/* Name column is bold */
+#categoriesTable td:nth-child(1),
+#trashCategories td:nth-child(1),
+#itemsTable td:nth-child(2),
+#trashItems td:nth-child(2) {
+    color: #2f2119;
+    font-weight: 600;
+}
+
+/* Price never breaks in the middle */
+#itemsTable td:nth-child(4),
+#trashItems td:nth-child(4) {
+    white-space: nowrap;
+    overflow-wrap: normal;
+}
+
+/* Actions column: buttons go to a new line if there is no space */
+td:last-child {
+    width: 1%;
+    min-width: 150px;
+}
+
+/* Rows */
+tbody tr {
+    transition: background 0.18s ease;
+
+    animation: adminRowIn 0.4s ease both;
+}
+
+tbody tr:hover {
+    background: #fcf8f3;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Row leaving (restore / delete forever) */
+tbody tr.row-leaving {
+    animation: adminRowOut 0.3s ease forwards;
+    pointer-events: none;
+}
+
+/* ---------- Status badges ---------- */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 4px 11px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Small dot before the text */
+.badge::before {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.badge-on {
+    background: #ecfdf3;
+    color: #067647;
+}
+
+.badge-on::before {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.badge-off {
+    background: #f3efea;
+    color: #8a7d72;
+}
+
+/* ---------- Small image ---------- */
+
+.thumb {
+    width: 44px;
+    height: 44px;
+
+    object-fit: cover;
+
+    border: 2px solid #ffffff;
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 12px rgba(47, 33, 25, 0.12);
+
+    transition: transform 0.25s ease;
+}
+
+tbody tr:hover .thumb {
+    transform: scale(1.08) rotate(-2deg);
+}
+
+/* ---------- Compact categories table ---------- */
+
+#categoriesTable td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    font-size: 13.5px;
+}
+
+/* Slug is less important: smaller and muted */
+#categoriesTable td:nth-child(2) {
+    color: #8a7d72;
+    font-size: 13px;
+}
+
+/* Buttons stay on one line */
+#categoriesTable td:last-child {
+    min-width: 0;
+
+    white-space: nowrap;
+}
+
+#categoriesTable .btn-small {
+    height: 30px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0 11px;
+}
+
+/* =========================================================
+   10. TRASH PAGE
+========================================================= */
+
+.trash-section {
+    margin-bottom: 32px;
+
+    animation: adminFadeUp 0.5s ease both;
+}
+
+.trash-section:nth-of-type(2) {
+    animation-delay: 0.08s;
+}
+
+.trash-section-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 14px;
+}
+
+.trash-section-head h2 {
+    color: #2f2119;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* Small number next to the section title */
+.trash-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 26px;
+    height: 26px;
+    padding: 0 8px;
+
+    border-radius: 20px;
+
+    background: #f2ebe2;
+    color: #4a3427;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Restore + Delete forever side by side */
+#trashCategories td:last-child,
+#trashItems td:last-child {
+    min-width: 240px;
+    white-space: nowrap;
+}
+
+/* Muted "Deleted on" date */
+#trashCategories td:nth-child(2),
+#trashItems td:nth-child(5) {
+    color: #8a7d72;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+/* ---------- Empty state ---------- */
+
+.trash-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    padding: 30px 20px;
+
+    border: 1px dashed #e5dccf;
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.7);
+    color: #8a7d72;
+
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+
+    animation: adminFadeUp 0.4s ease both;
+}
+
+/* Bin icon above the text */
+.trash-empty::before {
+    content: "";
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b8936a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6'/%3E%3C/svg%3E") no-repeat center / 20px,
+        #f6efe6;
+}
+
+/* =========================================================
+   11. DELETE POPUP
+========================================================= */
+
+.modal {
+    width: 90%;
+    max-width: 410px;
+
+    margin: auto;
+    padding: 26px 22px 20px;
+
+    border: none;
+    border-radius: 22px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(239, 68, 68, 0.08),
+            transparent 45%
+        ),
+        #ffffff;
+
+    color: #2f2119;
+    text-align: center;
+
+    box-shadow:
+        0 30px 70px rgba(30, 20, 14, 0.3);
+
+    animation: adminPopupIn 0.22s ease-out;
+}
+
+/* Dark blurred background behind the popup */
+.modal::backdrop {
+    background: rgba(30, 20, 14, 0.5);
+
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* Red circle with "!" */
+.modal-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 14px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fef3f2,
+            #fee4e2
+        );
+
+    color: #d92d20;
+    font-size: 26px;
+    font-weight: 800;
+
+    box-shadow:
+        0 0 0 8px rgba(217, 45, 32, 0.05);
+}
+
+.modal-title {
+    margin-bottom: 8px;
+
+    color: #2f2119;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.modal-text {
+    margin-bottom: 24px;
+
+    color: #8a7d72;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.modal-actions .btn {
+    flex: 1;
+}
+
+/* =========================================================
+   12. ANIMATIONS
+========================================================= */
+
+/* Green dot pulse */
+@keyframes adminPulse {
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.55;
+        transform: scale(0.8);
+    }
+}
+
+/* Dashboard cards */
+@keyframes adminCardIn {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Title, form, search, table */
+@keyframes adminFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Popup */
+@keyframes adminPopupIn {
+    from {
+        opacity: 0;
+        transform: scale(0.94) translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Table row coming in */
+@keyframes adminRowIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Table row leaving */
+@keyframes adminRowOut {
+    to {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+}
+
+/* =========================================================
+   13. RESPONSIVE
+========================================================= */
+
+/* ---------- Laptop (1200px) ---------- */
+
+@media (max-width: 1200px) {
+    .navbar {
+        padding: 14px 26px;
+    }
+
+    .container {
+        padding: 34px 26px 50px;
+    }
+}
+
+/* ---------- Tablet (900px): tables become cards ---------- */
+
+@media (max-width: 900px) {
+    h1 {
+        font-size: 26px;
+    }
+
+    /* Full width "Empty Trash" button */
+    .page-head .btn {
+        width: 100%;
+    }
+
+    /* Table box becomes a simple wrapper */
+    .table-box {
+        overflow: visible;
+
+        border: none;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    /* Hide the table header */
+    thead {
+        display: none;
+    }
+
+    /* Every part of the table stacks */
+    table,
+    tbody,
+    tr,
+    td {
+        display: block;
+        width: 100%;
+    }
+
+    /* Space between the cards */
+    tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    /* One row = one card */
+    tbody tr {
+        padding: 14px;
+
+        overflow: hidden;
+
+        border: 1px solid rgba(234, 225, 214, 0.95);
+        border-radius: 18px;
+
+        background:
+            linear-gradient(
+                145deg,
+                #ffffff,
+                #fdfbf8
+            );
+
+        box-shadow:
+            0 8px 22px rgba(47, 33, 25, 0.06);
+    }
+
+    tbody tr:hover {
+        background:
+            linear-gradient(
+                145deg,
+                #ffffff,
+                #fdfbf8
+            );
+    }
+
+    /* Each cell = one line: label on the left, value on the right */
+    td {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+
+        padding: 8px 0;
+
+        border-bottom: 1px dashed #f0e9e0;
+
+        word-break: break-word;
+    }
+
+    tbody tr:last-child td {
+        border-bottom: 1px dashed #f0e9e0;
+    }
+
+    /* Item without image */
+    td:empty {
+        display: none;
+    }
+
+    /* ---------- Labels ---------- */
+
+    #categoriesTable td::before,
+    #itemsTable td::before,
+    #trashCategories td::before,
+    #trashItems td::before {
+        flex-shrink: 0;
+
+        color: #8a7d72;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+    }
+
+    #categoriesTable td:nth-child(2)::before {
+        content: "Slug";
+    }
+
+    #categoriesTable td:nth-child(3)::before,
+    #itemsTable td:nth-child(5)::before {
+        content: "Status";
+    }
+
+    #itemsTable td:nth-child(3)::before,
+    #trashItems td:nth-child(3)::before {
+        content: "Category";
+    }
+
+    #itemsTable td:nth-child(4)::before,
+    #trashItems td:nth-child(4)::before {
+        content: "Price";
+    }
+
+    #trashCategories td:nth-child(2)::before,
+    #trashItems td:nth-child(5)::before {
+        content: "Deleted on";
+    }
+
+    /* ---------- Card title (name) ---------- */
+
+    #categoriesTable td:nth-child(1),
+    #trashCategories td:nth-child(1),
+    #itemsTable td:nth-child(2),
+    #trashItems td:nth-child(2) {
+        padding-top: 0;
+        padding-bottom: 10px;
+
+        border-bottom: 1px solid #f2ece4;
+
+        color: #2f2119;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    /* ---------- Item image on top ---------- */
+
+    #itemsTable td:nth-child(1),
+    #trashItems td:nth-child(1) {
+        display: block;
+
+        margin-bottom: 12px;
+        padding: 0;
+
+        border-bottom: none;
+    }
+
+    #itemsTable .thumb,
+    #trashItems .thumb {
+        width: 64px;
+        height: 64px;
+
+        border-radius: 14px;
+    }
+
+    tbody tr:hover .thumb {
+        transform: none;
+    }
+
+    /* ---------- Buttons one under the other ---------- */
+
+    #itemsTable td:last-child,
+    #trashCategories td:last-child,
+    #trashItems td:last-child {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        width: 100%;
+        min-width: 0;
+        margin-top: 6px;
+        padding-top: 14px;
+        padding-bottom: 0;
+
+        border-bottom: none;
+    }
+
+    td .btn-small {
+        width: 100%;
+        height: 38px;
+        margin: 0;
+
+        font-size: 13px;
+    }
+
+    /* ---------- Compact categories cards ---------- */
+
+    #categoriesTable td {
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    #categoriesTable td:nth-child(1) {
+        padding-bottom: 8px;
+    }
+
+    /* Buttons side by side */
+    #categoriesTable td:last-child {
+        display: flex;
+        flex-direction: row;
+        gap: 6px;
+
+        width: 100%;
+        margin-top: 6px;
+        padding-top: 10px;
+        padding-bottom: 0;
+
+        border-bottom: none;
+    }
+
+    #categoriesTable td .btn-small {
+        flex: 1;
+
+        min-width: 0;
+        height: 34px;
+        padding: 0 6px;
+
+        font-size: 12px;
+    }
+}
+
+/* ---------- Tablet only (601px - 900px): 2 cards per row ---------- */
+
+@media (min-width: 601px) and (max-width: 900px) {
+    tbody {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        align-items: start;
+    }
+}
+
+/* ---------- Small tablet (768px): logo on top, links under it ---------- */
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: stretch;
+
+        padding: 12px 18px;
+    }
+
+    .logo {
+        justify-content: center;
+    }
+
+    .nav-links {
+        justify-content: space-between;
+    }
+
+    .nav-links a {
+        justify-content: center;
+        flex: 1 1 auto;
+
+        text-align: center;
+    }
+}
+
+/* ---------- Phone (600px) ---------- */
+
+@media (max-width: 600px) {
+    .container {
+        padding: 24px 15px 38px;
+    }
+
+    h1 {
+        margin-bottom: 18px;
+
+        font-size: 25px;
+        letter-spacing: -0.6px;
+    }
+
+    /* Navbar: icon on top, text under it (like an app tab bar) */
+    .nav-links a {
+        flex-direction: column;
+        gap: 4px;
+
+        padding: 7px 2px;
+
+        font-size: 10.5px;
+        line-height: 1.2;
+    }
+
+    .nav-links a::before {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Form fields and buttons take the full width */
+    .form-box {
+        padding: 15px;
+    }
+
+    .form-box input,
+    .form-box select,
+    .form-box button {
+        flex-basis: 100%;
+        min-width: 0;
+    }
+}
+
+/* ---------- Small phone (480px) ---------- */
+
+@media (max-width: 480px) {
+    .nav-links {
+        gap: 2px;
+    }
+
+    .logo-name {
+        font-size: 16px;
+    }
+
+    /* Popup buttons one under the other, Delete on top */
+    .modal {
+        padding: 26px 18px 18px;
+    }
+
+    .modal-actions {
+        flex-direction: column-reverse;
+    }
+}
+
+/* =========================================================
+   14. REDUCED MOTION
+   (if the user turned off animations on their device)
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .logo-subtitle::before,
+    h1,
+    .form-box,
+    .search-box,
+    .table-box,
+    .modal,
+    tbody tr,
+    .trash-section,
+    .trash-empty,
+    .page-subtitle,
+    .dash-hero,
+    .dash-hero::before,
+    .live-dot,
+    .dash-title-status,
+    .dash-health::before,
+    .stat-card,
+    .dash-panel,
+    .summary-card,
+    .summary-orb,
+    .circle-progress,
+    .bar-fill,
+    .bar-fill::after,
+    .latest-item,
+    .insight-card,
+    .chart-area,
+    .chart-pulse {
+        animation: none;
+    }
+
+    .chart-line {
+        transition: none;
+    }
+
+    .logo-cup,
+    .thumb,
+    .btn,
+    .nav-links a::before,
+    .stat-card,
+    .stat-icon,
+    .summary-card,
+    .insight-card,
+    .dash-title-icon {
+        transition: none;
+    }
+}
+
+/* =========================================================
+   15. SAME WIDTH TABLE BUTTONS
+========================================================= */
+
+/* Edit, Activate / Deactivate and Delete have the same width */
+@media (min-width: 901px) {
+    #categoriesTable .btn-small,
+    #itemsTable .btn-small {
+        width: 96px;
+        padding: 0;
+
+        text-align: center;
+    }
+
+    /* Items: buttons side by side when there is space */
+    #itemsTable td:last-child {
+        min-width: 0;
+
+        white-space: nowrap;
+    }
+
+    /* Restore and Delete forever have the same width */
+    #trashCategories .btn-small,
+    #trashItems .btn-small {
+        width: 120px;
+        padding: 0;
+
+        text-align: center;
+    }
+}
+
+/* =========================================================
+   16. USER BOX (name + Log out in the navbar)
+   Added by js/auth.js
+========================================================= */
+
+.user-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 5px 5px 5px 6px;
+
+    border: 1px solid #eee5da;
+    border-radius: 14px;
+
+    background: rgba(247, 243, 238, 0.85);
+
+    animation: userBoxIn 0.5s ease both;
+}
+
+/* Circle with the first letter */
+.user-avatar {
+    width: 32px;
+    height: 32px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 10px;
+
+    background: linear-gradient(135deg, #4a3427, #b8936a);
+    color: #fcfbf8;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    box-shadow: 0 6px 14px rgba(74, 52, 39, 0.25);
+}
+
+.user-name {
+    max-width: 120px;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    color: #2f2119;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Log out button */
+.logout-btn {
+    padding: 7px 13px;
+
+    border: 1px solid #ecd3cb;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #b4442f;
+
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.2s ease;
+}
+
+.logout-btn:hover {
+    background: #b4442f;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+@keyframes userBoxIn {
+    from { opacity: 0; transform: translateX(14px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Small screens: the box goes in the middle, under the links */
+@media (max-width: 768px) {
+    .user-box {
+        justify-content: space-between;
+    }
+
+    .user-name {
+        flex: 1;
+        max-width: none;
+    }
+}

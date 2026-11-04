@@ -1,0 +1,13 @@
+# Packages (they come back with "npm install")
+node_modules/
+
+# Secrets (JWT_SECRET, database link...)
+.env
+
+# Images uploaded from the admin panel
+server/uploads/*
+!server/uploads/.gitkeep
+
+# System files
+.DS_Store
+Thumbs.db

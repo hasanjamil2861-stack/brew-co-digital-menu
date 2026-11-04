@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin | Categories</title>
+
+  <!-- Fonts (Montserrat for the logo, Poppins for the text) -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Admin styles -->
+  <link rel="stylesheet" href="css/admin.css" />
+
+    <!-- Login check (must be first) -->
+  <script src="js/auth.js"></script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <!-- Same logo as the customer menu -->
+    <a class="logo" href="index.html">
+      <svg class="logo-cup" viewBox="0 0 40 34" aria-hidden="true">
+        <path d="M19 2.5v2.5"/>
+        <path d="M6 9h24v6.5A11.5 11.5 0 0 1 18.5 27h-1A11.5 11.5 0 0 1 6 15.5V9Z"/>
+        <path d="M30 12h2.2a4.3 4.3 0 0 1 0 8.6H28.6"/>
+        <path d="M7 31.5h22"/>
+      </svg>
+      <span class="logo-text">
+        <span class="logo-name">BREW CO.</span>
+        <span class="logo-subtitle">ADMIN PANEL</span>
+      </span>
+    </a>
+
+    <!-- Links -->
+    <nav class="nav-links">
+      <a href="index.html">Dashboard</a>
+      <a class="active" href="categories.html">Categories</a>
+      <a href="items.html">Items</a>
+      <a href="trash.html">Trash</a>
+      <a href="/" target="_blank">View Menu</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Categories</h1>
+
+    <!-- Add form -->
+    <form class="form-box" id="categoryForm">
+      <input type="text" id="categoryName" placeholder="Category name" required />
+      <button type="submit" class="btn btn-main">Add Category</button>
+    </form>
+
+    <!-- Search -->
+    <div class="search-box">
+      <input type="search" id="searchInput" placeholder="Search categories..." />
+    </div>
+
+    <!-- Categories table -->
+    <div class="table-box">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Slug</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="categoriesTable"></tbody>
+      </table>
+    </div>
+
+    <!-- Shown when the search finds nothing -->
+    <p class="no-results" id="noResults" hidden>No results found</p>
+
+    <!-- Delete confirmation popup -->
+    <dialog id="deleteModal" class="modal">
+      <form method="dialog">
+        <div class="modal-icon">!</div>
+        <h3 class="modal-title">Delete category?</h3>
+        <p class="modal-text" id="deleteText"></p>
+        <div class="modal-actions">
+          <button value="no" class="btn btn-light">Cancel</button>
+          <button value="yes" class="btn btn-danger">Delete</button>
+        </div>
+      </form>
+    </dialog>
+  </main>
+
+  <!-- Page scripts (helpers first, page script last) -->
+  <script src="js/modal.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/categories.js"></script>
+</body>
+</html>

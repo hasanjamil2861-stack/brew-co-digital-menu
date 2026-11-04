@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin | Dashboard</title>
+
+  <!-- Fonts (Montserrat for the logo, Poppins for the text) -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Admin styles -->
+  <link rel="stylesheet" href="css/admin.css" />
+    <!-- Loading screen styles (same file as the menu) -->
+  <link rel="stylesheet" href="../loader.css" />
+    <!-- Login check (must be first) -->
+  <script src="js/auth.js"></script>
+</head>
+<body>
+
+    <!-- ===================== LOADING SCREEN ===================== -->
+  <div class="loader" id="loader" data-key="brewAdminLoaderSeen" aria-hidden="true">
+    <div class="loader-content">
+
+      <!-- Cup with rings, coffee and steam -->
+      <div class="loader-cup-box">
+        <span class="loader-ring"></span>
+        <span class="loader-ring loader-ring-2"></span>
+        <span class="loader-glow"></span>
+
+        <svg class="loader-cup" viewBox="0 -14 40 48">
+          <defs>
+            <!-- Coffee stays inside the cup -->
+            <clipPath id="cupInside">
+              <path d="M6 9h24v6.5A11.5 11.5 0 0 1 18.5 27h-1A11.5 11.5 0 0 1 6 15.5V9Z"/>
+            </clipPath>
+          </defs>
+
+          <!-- Coffee + foam -->
+          <g clip-path="url(#cupInside)">
+            <rect class="cup-coffee" x="5" y="12" width="26" height="16"/>
+            <rect class="cup-foam" x="5" y="11" width="26" height="1.6"/>
+          </g>
+
+          <!-- Steam -->
+          <path class="steam steam-1" d="M14 5c-2-2.5 2-4.5 0-7s2-4.5 0-7"/>
+          <path class="steam steam-2" d="M19 5c-2-2.5 2-4.5 0-7s2-4.5 0-7"/>
+          <path class="steam steam-3" d="M24 5c-2-2.5 2-4.5 0-7s2-4.5 0-7"/>
+
+          <!-- Cup lines (same as the logo) -->
+          <path class="cup-line cup-line-body" pathLength="100" d="M6 9h24v6.5A11.5 11.5 0 0 1 18.5 27h-1A11.5 11.5 0 0 1 6 15.5V9Z"/>
+          <path class="cup-line cup-line-handle" pathLength="100" d="M30 12h2.2a4.3 4.3 0 0 1 0 8.6H28.6"/>
+          <path class="cup-line cup-line-plate" pathLength="100" d="M7 31.5h22"/>
+        </svg>
+      </div>
+
+      <!-- Brand name (each letter animates) -->
+      <p class="loader-name">
+        <span>B</span><span>R</span><span>E</span><span>W</span><span class="loader-space"></span><span>C</span><span>O</span><span>.</span>
+      </p>
+      <p class="loader-subtitle">ADMIN PANEL</p>
+
+      <!-- Progress bar -->
+      <div class="loader-progress">
+        <div class="loader-bar">
+          <div class="loader-bar-fill" id="loaderFill"></div>
+        </div>
+        <div class="loader-info">
+          <span>Preparing your dashboard<span class="loader-dots"><span>.</span><span>.</span><span>.</span></span></span>
+          <span class="loader-percent" id="loaderPercent">0%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../js/loader.js"></script>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <!-- Same logo as the customer menu -->
+    <a class="logo" href="index.html">
+      <svg class="logo-cup" viewBox="0 0 40 34" aria-hidden="true">
+        <path d="M19 2.5v2.5"/>
+        <path d="M6 9h24v6.5A11.5 11.5 0 0 1 18.5 27h-1A11.5 11.5 0 0 1 6 15.5V9Z"/>
+        <path d="M30 12h2.2a4.3 4.3 0 0 1 0 8.6H28.6"/>
+        <path d="M7 31.5h22"/>
+      </svg>
+      <span class="logo-text">
+        <span class="logo-name">BREW CO.</span>
+        <span class="logo-subtitle">ADMIN PANEL</span>
+      </span>
+    </a>
+
+    <!-- Links -->
+    <nav class="nav-links">
+      <a class="active" href="index.html">Dashboard</a>
+      <a href="categories.html">Categories</a>
+      <a href="items.html">Items</a>
+      <a href="trash.html">Trash</a>
+      <a href="/" target="_blank">View Menu</a>
+    </nav>
+  </header>
+
+  <main class="container dashboard">
+
+    <!-- ===================== HERO ===================== -->
+    <section class="dash-hero">
+      <div class="dash-hero-grid" aria-hidden="true"></div>
+
+      <!-- Title -->
+      <div class="dash-hero-content">
+        <p class="dash-eyebrow">
+          <span class="live-dot"></span>
+          LIVE MENU OVERVIEW
+        </p>
+
+        <div class="dash-title-row">
+          <span class="dash-title-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+            <span class="dash-title-status"></span>
+          </span>
+
+          <div class="dash-title-text">
+            <h1>Dashboard</h1>
+            <p>Everything about your digital menu in one place: categories, items, prices and what your customers can see right now.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side -->
+      <div class="dash-hero-right">
+        <div class="dash-health">
+          <span class="dash-health-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+          </span>
+          <div>
+            <span>VISIBLE ON THE MENU</span>
+            <strong id="visibleText">0 of 0 items</strong>
+          </div>
+          <b class="dash-health-score" id="visiblePercent">0%</b>
+        </div>
+
+        <p class="dash-date">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+          <span id="todayDate">Today</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== KPI CARDS ===================== -->
+    <section class="dash-stats">
+      <a class="stat-card stat-brown" href="categories.html">
+        <div class="stat-top">
+          <span class="stat-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H9l2 2h7.5A2.5 2.5 0 0 1 21 9.5v8a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5z"/></svg>
+          </span>
+          <svg class="stat-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </div>
+        <p class="stat-label">Total Categories</p>
+        <p class="stat-number" id="totalCategories">0</p>
+        <p class="stat-note" id="categoriesNote">0 active</p>
+      </a>
+
+      <a class="stat-card stat-tan" href="items.html">
+        <div class="stat-top">
+          <span class="stat-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 3.5v2M12 3.5v2"/></svg>
+          </span>
+          <svg class="stat-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </div>
+        <p class="stat-label">Total Items</p>
+        <p class="stat-number" id="totalItems">0</p>
+        <p class="stat-note" id="itemsNote">in 0 categories</p>
+      </a>
+
+      <a class="stat-card stat-green" href="items.html">
+        <div class="stat-top">
+          <span class="stat-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>
+          </span>
+          <svg class="stat-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </div>
+        <p class="stat-label">Active Items</p>
+        <p class="stat-number" id="activeItems">0</p>
+        <p class="stat-note" id="activeNote">0% of all items</p>
+      </a>
+
+      <a class="stat-card stat-grey" href="items.html">
+        <div class="stat-top">
+          <span class="stat-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg>
+          </span>
+          <svg class="stat-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </div>
+        <p class="stat-label">Inactive Items</p>
+        <p class="stat-number" id="inactiveItems">0</p>
+        <p class="stat-note">hidden from customers</p>
+      </a>
+    </section>
+
+    <!-- ===================== STOCK STYLE CHART ===================== -->
+    <section class="dash-panel chart-panel">
+      <div class="chart-head">
+        <div>
+          <p class="panel-eyebrow">MENU GROWTH</p>
+          <div class="chart-value-row">
+            <strong id="chartValue">0</strong>
+            <span class="chart-change" id="chartChange">+0</span>
+          </div>
+          <p class="chart-sub">items on the menu, <span id="chartPeriodText">last 30 days</span></p>
+        </div>
+
+        <!-- Period buttons -->
+        <div class="chart-periods" id="chartPeriods">
+          <button type="button" data-days="7">7D</button>
+          <button type="button" data-days="30" class="active">30D</button>
+          <button type="button" data-days="90">90D</button>
+        </div>
+      </div>
+
+      <!-- The chart is drawn here by dashboard.js -->
+      <div class="chart-box" id="chartBox">
+        <div class="chart-tooltip" id="chartTooltip" hidden>
+          <span id="tooltipDate"></span>
+          <strong id="tooltipValue"></strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SUMMARY ===================== -->
+    <section class="dash-summary">
+
+      <!-- Main summary -->
+      <div class="summary-card summary-main">
+        <span class="summary-orb" aria-hidden="true"></span>
+        <div class="summary-content">
+          <p class="panel-eyebrow">MENU SUMMARY</p>
+          <h2 id="summaryTitle">Loading your menu...</h2>
+          <p id="summaryText"></p>
+        </div>
+        <div class="summary-score">
+          <strong id="averagePrice">$0.00</strong>
+          <span>average price</span>
+        </div>
+      </div>
+
+      <!-- Active items circle -->
+      <div class="summary-card">
+        <p class="panel-eyebrow">ITEMS STATUS</p>
+        <h3 class="summary-small-title">Active vs Inactive</h3>
+
+        <div class="circle-progress" id="activeCircle">
+          <div class="circle-inner">
+            <strong id="activePercent">0%</strong>
+            <span>active</span>
+          </div>
+        </div>
+
+        <div class="mini-stats">
+          <div><strong id="miniActive">0</strong><span>Active</span></div>
+          <div><strong id="miniInactive">0</strong><span>Inactive</span></div>
+          <div><strong id="miniTotal">0</strong><span>Total</span></div>
+        </div>
+      </div>
+
+      <!-- Prices -->
+      <div class="summary-card">
+        <p class="panel-eyebrow">PRICES</p>
+        <h3 class="summary-small-title">Price Range</h3>
+
+        <div class="price-list">
+          <div>
+            <span>Most expensive</span>
+            <strong id="mostExpensivePrice">-</strong>
+            <small id="mostExpensiveName">-</small>
+          </div>
+          <div>
+            <span>Cheapest</span>
+            <strong id="cheapestPrice">-</strong>
+            <small id="cheapestName">-</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== BARS + LATEST ===================== -->
+    <section class="dash-grid">
+      <div class="dash-panel">
+        <div class="panel-head">
+          <div>
+            <h2>Items per Category</h2>
+            <p>How many items each category has</p>
+          </div>
+          <span class="panel-badge" id="categoriesBadge">0 categories</span>
+        </div>
+        <div class="bars" id="categoryBars"></div>
+      </div>
+
+      <div class="dash-panel">
+        <div class="panel-head">
+          <div>
+            <h2>Latest Items</h2>
+            <p>The 5 newest items on the menu</p>
+          </div>
+          <a class="panel-badge" href="items.html">View all</a>
+        </div>
+        <ul class="latest-list" id="latestItems"></ul>
+      </div>
+    </section>
+
+    <!-- ===================== INSIGHTS ===================== -->
+    <section class="dash-insights">
+      <a class="insight-card" href="categories.html">
+        <span class="insight-icon insight-grey">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H9l2 2h7.5A2.5 2.5 0 0 1 21 9.5v8a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5z"/><path d="M9 13h6"/></svg>
+        </span>
+        <div>
+          <span>CATEGORIES</span>
+          <h3><b id="inactiveCategories">0</b> inactive</h3>
+          <p>Hidden from the customer menu with all their items.</p>
+        </div>
+      </a>
+
+      <a class="insight-card" href="items.html">
+        <span class="insight-icon insight-tan">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-8 9"/></svg>
+        </span>
+        <div>
+          <span>PHOTOS</span>
+          <h3><b id="itemsWithoutImage">0</b> without image</h3>
+          <p>Items with a photo look better on the menu.</p>
+        </div>
+      </a>
+
+      <a class="insight-card" href="trash.html">
+        <span class="insight-icon insight-red">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/></svg>
+        </span>
+        <div>
+          <span>TRASH</span>
+          <h3><b id="trashCount">0</b> in the trash</h3>
+          <p>Restore them or delete them forever.</p>
+        </div>
+      </a>
+    </section>
+  </main>
+
+  <!-- Page script -->
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

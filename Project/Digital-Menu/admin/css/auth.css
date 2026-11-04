@@ -1,0 +1,1028 @@
+/* =========================================================
+   BREW CO. ADMIN - LOGIN & REGISTER PAGES
+   1. Colors
+   2. Base
+   3. Animated background (gradient, orbs, logo, grid)
+   4. Layout
+   5. Brand side (left)
+   6. Card (right)
+   7. Message (error / info)
+   8. Fields (inputs)
+   9. Password strength
+   10. Button (shine, spinner, success)
+   11. Links + footer text
+   12. Register card (shorter, like the login card)
+   13. Animations
+   14. Responsive
+   15. Reduced motion
+   ========================================================= */
+
+
+/* ===================== 1. COLORS ===================== */
+
+:root {
+  --brown: #4a3427;
+  --tan: #b8936a;
+  --tan-light: #d9bf9c;
+  --dark: #2f2119;
+  --muted: #8a7d72;
+  --paper: #fcfbf8;
+  --cream: #f7f3ee;
+  --line: #e7ddd2;
+  --red: #b4442f;
+  --green: #4f7a4a;
+}
+
+
+/* ===================== 2. BASE ===================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body.auth-page {
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  color: var(--dark);
+  background: var(--dark);
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+}
+
+svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* ===================== 3. ANIMATED BACKGROUND ===================== */
+
+/* The full-screen background behind everything */
+.auth-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+
+  /* Big gradient that moves slowly */
+  background: linear-gradient(135deg, #2f2119 0%, #4a3427 30%, #8a6446 55%, #b8936a 75%, #2f2119 100%);
+  background-size: 300% 300%;
+  animation: gradientMove 16s ease-in-out infinite;
+}
+
+/* Dark shade on top so the text stays readable */
+.auth-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 70% 50%, transparent 0%, rgba(47, 33, 25, 0.55) 75%);
+}
+
+/* Soft glowing circles that float */
+.auth-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.55;
+  animation: orbFloat 14s ease-in-out infinite;
+}
+
+.orb-1 {
+  width: 420px;
+  height: 420px;
+  top: -120px;
+  left: -100px;
+  background: #b8936a;
+}
+
+.orb-2 {
+  width: 340px;
+  height: 340px;
+  bottom: -110px;
+  right: 8%;
+  background: #d9bf9c;
+  animation-delay: -5s;
+}
+
+.orb-3 {
+  width: 260px;
+  height: 260px;
+  top: 40%;
+  left: 45%;
+  background: #6b4a35;
+  animation-delay: -9s;
+}
+
+/* The big logo in the background */
+.auth-bg-logo {
+  position: absolute;
+  width: min(620px, 80vw);
+  right: -6%;
+  top: 50%;
+  translate: 0 -50%;
+  color: rgba(252, 251, 248, 0.07);
+  stroke-width: 1.2;
+  animation: logoFloat 10s ease-in-out infinite;
+}
+
+/* The logo lines draw themselves when the page opens */
+.auth-bg-logo path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: drawLine 2.6s ease forwards;
+}
+
+.auth-bg-logo path:nth-child(2) { animation-delay: 0.3s; }
+.auth-bg-logo path:nth-child(3) { animation-delay: 0.8s; }
+.auth-bg-logo path:nth-child(4) { animation-delay: 1.1s; }
+
+/* Thin grid lines that fade at the edges */
+.auth-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(252, 251, 248, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(252, 251, 248, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(circle at center, black 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(circle at center, black 20%, transparent 75%);
+}
+
+
+/* ===================== 4. LAYOUT ===================== */
+
+/* Two columns: brand on the left, card on the right */
+.auth-layout {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 40px 32px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 60px;
+}
+
+
+/* ===================== 5. BRAND SIDE (LEFT) ===================== */
+
+.auth-brand {
+  color: var(--paper);
+  animation: slideRight 0.9s ease both;
+}
+
+/* Logo (cup + name) */
+.auth-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  margin-bottom: 46px;
+}
+
+.auth-logo-cup {
+  width: 50px;
+  height: 44px;
+  padding: 8px;
+  color: var(--tan-light);
+  background: rgba(252, 251, 248, 0.08);
+  border: 1px solid rgba(252, 251, 248, 0.16);
+  border-radius: 14px;
+  backdrop-filter: blur(8px);
+}
+
+.auth-logo strong {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  letter-spacing: 3px;
+}
+
+.auth-logo small {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--tan-light);
+}
+
+/* Big title */
+.auth-title {
+  font-size: clamp(32px, 4.2vw, 50px);
+  line-height: 1.15;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+/* The colored word in the title (moving gradient text) */
+.auth-title span {
+  background: linear-gradient(90deg, #d9bf9c, #f7f3ee, #b8936a, #d9bf9c);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: textShine 6s linear infinite;
+}
+
+.auth-text {
+  max-width: 460px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(252, 251, 248, 0.72);
+  margin-bottom: 34px;
+}
+
+/* List of features */
+.auth-features {
+  list-style: none;
+  display: grid;
+  gap: 14px;
+  margin-bottom: 46px;
+}
+
+.auth-features li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+  color: rgba(252, 251, 248, 0.85);
+  animation: fadeUp 0.7s ease both;
+}
+
+/* Each feature comes after the one before it */
+.auth-features li:nth-child(1) { animation-delay: 0.4s; }
+.auth-features li:nth-child(2) { animation-delay: 0.55s; }
+.auth-features li:nth-child(3) { animation-delay: 0.7s; }
+
+.feature-icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  color: var(--tan-light);
+  background: rgba(252, 251, 248, 0.08);
+  border: 1px solid rgba(252, 251, 248, 0.14);
+}
+
+.feature-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.auth-copy {
+  font-size: 12px;
+  color: rgba(252, 251, 248, 0.45);
+}
+
+
+/* ===================== 6. CARD (RIGHT) ===================== */
+
+/* Glass card */
+.auth-card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  justify-self: end;
+  padding: 38px 34px 30px;
+  border-radius: 26px;
+  background: rgba(252, 251, 248, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 30px 80px rgba(20, 12, 8, 0.45), 0 0 0 8px rgba(252, 251, 248, 0.06);
+  backdrop-filter: blur(18px);
+  animation: cardIn 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* Gradient line on the top of the card */
+.auth-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 34px;
+  right: 34px;
+  height: 3px;
+  border-radius: 0 0 4px 4px;
+  background: linear-gradient(90deg, var(--brown), var(--tan), var(--tan-light), var(--tan), var(--brown));
+  background-size: 200% 100%;
+  animation: textShine 4s linear infinite;
+}
+
+/* Error shake (added by JS) */
+.auth-card.shake {
+  animation: shake 0.45s ease;
+}
+
+/* Card title */
+.auth-card-head {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* Round icon above the title */
+.auth-card-icon {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 16px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  color: var(--paper);
+  background: linear-gradient(135deg, var(--brown), var(--tan));
+  box-shadow: 0 12px 26px rgba(74, 52, 39, 0.35);
+}
+
+/* Ring that pulses around the icon */
+.auth-card-icon::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 22px;
+  border: 2px solid var(--tan);
+  animation: ringPulse 2.4s ease-out infinite;
+}
+
+.auth-card-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.auth-card-head h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.auth-card-head p {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+
+/* ===================== 7. MESSAGE (ERROR / INFO) ===================== */
+
+.auth-message {
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 11px 14px 11px 40px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  position: relative;
+  animation: fadeUp 0.3s ease;
+}
+
+/* Small dot with "!" or "i" on the left */
+.auth-message::before {
+  position: absolute;
+  left: 13px;
+  top: 11px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.auth-message.error {
+  color: var(--red);
+  background: #fbece8;
+  border: 1px solid #f1cfc6;
+}
+
+.auth-message.error::before {
+  content: '!';
+  background: var(--red);
+}
+
+.auth-message.info {
+  color: var(--brown);
+  background: var(--cream);
+  border: 1px solid var(--line);
+}
+
+.auth-message.info::before {
+  content: 'i';
+  background: var(--tan);
+}
+
+
+/* ===================== 8. FIELDS (INPUTS) ===================== */
+
+.auth-form {
+  display: grid;
+  gap: 16px;
+}
+
+.field {
+  animation: fadeUp 0.6s ease both;
+}
+
+/* Fields come one after the other */
+.field:nth-child(1) { animation-delay: 0.35s; }
+.field:nth-child(2) { animation-delay: 0.45s; }
+.field:nth-child(3) { animation-delay: 0.55s; }
+.field:nth-child(4) { animation-delay: 0.65s; }
+
+.field-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: var(--brown);
+  margin-bottom: 7px;
+}
+
+/* Box that holds the icon + input + eye button */
+.field-box {
+  position: relative;
+}
+
+.field-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  translate: 0 -50%;
+  width: 18px;
+  height: 18px;
+  color: var(--muted);
+  pointer-events: none;
+  transition: color 0.25s ease, scale 0.25s ease;
+}
+
+.field-box input {
+  width: 100%;
+  height: 50px;
+  padding: 0 46px 0 46px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--dark);
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.field-box input::placeholder {
+  color: #b9ada2;
+}
+
+.field-box input:hover {
+  border-color: #d6c6b4;
+}
+
+/* Glow when the user clicks inside */
+.field-box input:focus {
+  border-color: var(--tan);
+  background: var(--paper);
+  box-shadow: 0 0 0 4px rgba(184, 147, 106, 0.18);
+}
+
+/* The icon becomes brown and bigger on focus */
+.field-box:focus-within .field-icon {
+  color: var(--brown);
+  scale: 1.1;
+}
+
+/* Eye button (show / hide password) */
+.toggle-password {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  translate: 0 -50%;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.toggle-password:hover {
+  background: var(--cream);
+  color: var(--brown);
+}
+
+.toggle-password svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Line across the eye when the password is visible */
+.toggle-password::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  rotate: -45deg;
+  scale: 0 1;
+  transition: scale 0.25s ease;
+}
+
+.toggle-password.visible::after {
+  scale: 1 1;
+}
+
+
+/* ===================== 9. PASSWORD STRENGTH ===================== */
+
+.strength {
+  margin-top: 10px;
+}
+
+.strength-bars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.strength-bars span {
+  height: 5px;
+  border-radius: 5px;
+  background: var(--line);
+  transition: background 0.35s ease, transform 0.35s ease;
+}
+
+.strength small {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* Level 0 and 1: red */
+.level-0 .strength-bars span:nth-child(-n+1),
+.level-1 .strength-bars span:nth-child(-n+1) {
+  background: var(--red);
+}
+
+/* Level 2: orange */
+.level-2 .strength-bars span:nth-child(-n+2) {
+  background: #d28a3c;
+}
+
+/* Level 3: tan */
+.level-3 .strength-bars span:nth-child(-n+3) {
+  background: var(--tan);
+}
+
+/* Level 4: green */
+.level-4 .strength-bars span {
+  background: var(--green);
+}
+
+.level-0 small,
+.level-1 small { color: var(--red); }
+.level-2 small { color: #b5702a; }
+.level-3 small { color: var(--brown); }
+.level-4 small { color: var(--green); }
+
+
+/* ===================== 10. BUTTON ===================== */
+
+.auth-btn {
+  position: relative;
+  overflow: hidden;
+  height: 52px;
+  margin-top: 6px;
+  border: none;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: var(--paper);
+  background: linear-gradient(120deg, var(--dark), var(--brown) 40%, var(--tan) 70%, var(--brown));
+  background-size: 200% 100%;
+  box-shadow: 0 14px 30px rgba(74, 52, 39, 0.35);
+  cursor: pointer;
+  transition: background-position 0.5s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  animation: fadeUp 0.6s 0.7s ease both;
+}
+
+/* Light that passes over the button */
+.auth-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -70%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  skew: -20deg;
+  animation: btnShine 3.5s ease-in-out infinite;
+}
+
+.auth-btn:hover {
+  background-position: 100% 0;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(74, 52, 39, 0.45);
+}
+
+.auth-btn:active {
+  transform: translateY(0);
+}
+
+.auth-btn:focus-visible {
+  outline: 3px solid var(--tan-light);
+  outline-offset: 3px;
+}
+
+.auth-btn:disabled {
+  cursor: default;
+  transform: none;
+}
+
+/* Spinner (hidden until "loading") */
+.auth-spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  border-radius: 50%;
+  border: 2.5px solid rgba(252, 251, 248, 0.3);
+  border-top-color: var(--paper);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Loading: hide the text, show the spinner */
+.auth-btn.loading .auth-btn-text {
+  opacity: 0;
+}
+
+.auth-btn.loading .auth-spinner {
+  opacity: 1;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Success: green button with a check mark */
+.auth-btn.success {
+  background: var(--green);
+  box-shadow: 0 14px 30px rgba(79, 122, 74, 0.4);
+}
+
+.auth-btn.success .auth-btn-text {
+  font-size: 0;
+}
+
+.auth-btn.success .auth-btn-text::after {
+  content: '✓  Welcome!';
+  font-size: 15px;
+  animation: popIn 0.4s ease;
+  display: inline-block;
+}
+
+
+/* ===================== 11. LINKS + FOOTER TEXT ===================== */
+
+.auth-switch {
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 22px;
+}
+
+/* Link with a line that grows under it */
+.auth-switch a {
+  position: relative;
+  font-weight: 600;
+  color: var(--brown);
+  text-decoration: none;
+}
+
+.auth-switch a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--tan);
+  scale: 0 1;
+  transform-origin: left;
+  transition: scale 0.3s ease;
+}
+
+.auth-switch a:hover::after {
+  scale: 1 1;
+}
+
+/* "Protected with JWT" line */
+.auth-secure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--line);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.auth-secure svg {
+  width: 15px;
+  height: 15px;
+  color: var(--green);
+}
+
+
+/* ===================== 12. REGISTER CARD (SHORTER) ===================== */
+/* ":has(#registerForm)" = only the card that has the register form */
+
+/* A bit wider so 2 fields fit side by side */
+.auth-card:has(#registerForm) {
+  max-width: 500px;
+  padding: 28px 30px 22px;
+}
+
+/* Smaller head */
+.auth-card:has(#registerForm) .auth-card-head {
+  margin-bottom: 18px;
+}
+
+.auth-card:has(#registerForm) .auth-card-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+}
+
+.auth-card:has(#registerForm) .auth-card-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.auth-card:has(#registerForm) .auth-card-head h2 {
+  font-size: 22px;
+}
+
+/* 2 columns: Username + Email, then Password + Confirm */
+#registerForm {
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 12px;
+  align-items: start;
+}
+
+/* The button takes the 2 columns */
+#registerForm .auth-btn {
+  grid-column: 1 / -1;
+  margin-top: 2px;
+}
+
+/* Shorter inputs */
+#registerForm .field-box input {
+  height: 46px;
+  padding: 0 40px 0 40px;
+  font-size: 13.5px;
+}
+
+#registerForm .field-icon {
+  left: 13px;
+  width: 17px;
+  height: 17px;
+}
+
+#registerForm .toggle-password {
+  right: 6px;
+}
+
+/* Smaller strength bars */
+#registerForm .strength {
+  margin-top: 8px;
+}
+
+#registerForm .strength-bars {
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+#registerForm .strength-bars span {
+  height: 4px;
+}
+
+#registerForm .strength small {
+  font-size: 10.5px;
+  line-height: 1.3;
+}
+
+/* Less space at the bottom */
+.auth-card:has(#registerForm) .auth-switch {
+  margin-top: 16px;
+}
+
+.auth-card:has(#registerForm) .auth-secure {
+  margin-top: 14px;
+  padding-top: 14px;
+}
+
+/* Wait for the loading screen before drawing the background logo */
+body.is-loading .auth-bg-logo,
+body.is-loading .auth-bg-logo path {
+  animation-play-state: paused;
+}
+
+/* ===================== 13. ANIMATIONS ===================== */
+
+/* Background gradient moving */
+@keyframes gradientMove {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Orbs floating */
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.08); }
+  66% { transform: translate(-30px, 25px) scale(0.95); }
+}
+
+/* Background logo going up and down */
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-18px) rotate(2deg); }
+}
+
+/* Lines drawing */
+@keyframes drawLine {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Gradient text moving */
+@keyframes textShine {
+  to { background-position: 300% 0; }
+}
+
+/* Brand side comes from the left */
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Card comes up and gets bigger */
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(40px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Small things come up */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ring around the card icon */
+@keyframes ringPulse {
+  0% { opacity: 0.7; transform: scale(0.9); }
+  100% { opacity: 0; transform: scale(1.3); }
+}
+
+/* Light passing on the button */
+@keyframes btnShine {
+  0% { left: -70%; }
+  45%, 100% { left: 130%; }
+}
+
+/* Spinner */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Success text */
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Error shake */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-10px); }
+  40% { transform: translateX(9px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(4px); }
+}
+
+
+
+
+/* ===================== 14. RESPONSIVE ===================== */
+
+/* Tablet: one column, card in the middle */
+@media (max-width: 960px) {
+  .auth-layout {
+    grid-template-columns: 1fr;
+    gap: 34px;
+    padding: 40px 24px;
+    justify-items: center;
+  }
+
+  .auth-brand {
+    text-align: center;
+    max-width: 520px;
+  }
+
+  .auth-logo {
+    margin-bottom: 26px;
+  }
+
+  .auth-text {
+    margin: 0 auto 0;
+  }
+
+  /* Hide the features and the copyright to keep it short */
+  .auth-features,
+  .auth-copy {
+    display: none;
+  }
+
+  .auth-card {
+    justify-self: center;
+  }
+
+  .auth-bg-logo {
+    right: 50%;
+    translate: 50% -50%;
+  }
+}
+
+/* Phone */
+@media (max-width: 600px) {
+  .auth-layout {
+    padding: 28px 16px;
+    gap: 24px;
+  }
+
+  /* Only the logo stays from the brand side */
+  .auth-title,
+  .auth-text {
+    display: none;
+  }
+
+  .auth-logo {
+    margin-bottom: 0;
+  }
+
+  .auth-card {
+    padding: 30px 20px 24px;
+    border-radius: 22px;
+  }
+
+  .auth-card-head h2 {
+    font-size: 21px;
+  }
+
+  /* Register: one field under the other on phones */
+  #registerForm {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-card:has(#registerForm) {
+    padding: 26px 20px 22px;
+  }
+
+  .orb-1 { width: 280px; height: 280px; }
+  .orb-2 { width: 240px; height: 240px; }
+  .orb-3 { display: none; }
+}
+
+
+/* ===================== 15. REDUCED MOTION ===================== */
+
+/* Users who turned off animations on their device */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
