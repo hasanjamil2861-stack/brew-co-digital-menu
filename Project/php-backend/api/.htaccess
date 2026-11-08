@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Give the "Authorization" header (the login token) to PHP
+# (some hosts remove it if we don't do this)
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# Send every /api/... request to index.php
+RewriteRule ^index\.php$ - [L]
+RewriteRule ^ index.php [L]

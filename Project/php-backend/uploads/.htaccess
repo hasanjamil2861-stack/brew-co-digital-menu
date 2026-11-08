@@ -1,0 +1,4 @@
+# This folder is only for images: never run scripts here
+<FilesMatch "\.(php|phtml|phar)$">
+    Require all denied
+</FilesMatch>
